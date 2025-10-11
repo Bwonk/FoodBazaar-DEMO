@@ -58,37 +58,7 @@
             background-clip: text;
         }
         
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .shine-button {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .shine-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .shine-button:hover::before {
-            left: 100%;
-        }
-        
-        .dotted-bg {
-            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-        
+
         .plate {
             position: relative;
             width: 200px;
