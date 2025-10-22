@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Functionality Tests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-item {
+            padding: 10px;
+            margin: 5px 0;
+            border-left: 4px solid #ccc;
+            background: #f9f9f9;
+        }
+        .test-item.pass {
+            border-left-color: #4CAF50;
+            background: #f1f8f4;
+        }
+        .test-item.fail {
+            border-left-color: #f44336;
+            background: #fef1f0;
+        }
+        .test-item.pending {
+            border-left-color: #ff9800;
+            background: #fff8f0;
+        }
+        button {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #1976D2;
+        }
+        .status {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #2196F3;
+            padding-bottom: 10px;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Authentication Modal Functionality Tests</h1>
+    
+    <div class="instructions">
+        <strong>Instructions:</strong> Open index.html in your browser, then run these tests manually by following the steps below.
+        This page serves as a checklist for testing all modal functionality.
+    </div>
+
+    <div class="test-section">
+        <h2>4.1 Test Modal Opening from Header Dropdown</h2>
+        <div class="test-item pending" id="test-1-1">
+            <input type="checkbox" id="check-1-1">
+            <label for="check-1-1">Click "Giriş Yap" tab in account dropdown - Login modal opens</label>
+        </div>
+        <div class="test-item pending" id="test-1-2">
+            <input type="checkbox" id="check-1-2">
+            <label for="check-1-2">Click "Kayıt Ol" tab in account dropdown - Register modal opens</label>
+        </div>
+        <div class="test-item pending" id="test-1-3">
+            <input type="checkbox" id="check-1-3">
+            <label for="check-1-3">Account dropdown closes when modal opens</label>
+        </div>
+        <div class="test-item pending" id="test-1-4">
+            <input type="checkbox" id="check-1-4">
+            <label for="check-1-4">Body scroll is prevented when modal opens (try scrolling)</label>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>4.2 Test Modal Closing Mechanisms</h2>
+        <div class="test-item pending" id="test-2-1">
+            <input type="checkbox" id="check-2-1">
+            <label for="check-2-1">Close button works on login modal</label>
+        </div>
+        <div class="test-item pending" id="test-2-2">
+            <input type="checkbox" id="check-2-2">
+            <label for="check-2-2">Close button works on register modal</label>
+        </div>
+        <div class="test-item pending" id="test-2-3">
+            <input type="checkbox" id="check-2-3">
+            <label for="check-2-3">Close button works on forgot password modal</label>
+        </div>
+        <div class="test-item pending" id="test-2-4">
+            <input type="checkbox" id="check-2-4">
+            <label for="check-2-4">Backdrop click closes login modal</label>
+        </div>
+        <div class="test-item pending" id="test-2-5">
+            <input type="checkbox" id="check-2-5">
+            <label for="check-2-5">Backdrop click closes register modal</label>
+        </div>
+        <div class="test-item pending" id="test-2-6">
+            <input type="checkbox" id="check-2-6">
+            <label for="check-2-6">Backdrop click closes forgot password modal</label>
+        </div>
+        <div class="test-item pending" id="test-2-7">
+            <input type="checkbox" id="check-2-7">
+            <label for="check-2-7">Escape key closes login modal</label>
+        </div>
+        <div class="test-item pending" id="test-2-8">
+            <input type="checkbox" id="check-2-8">
+            <label for="check-2-8">Escape key closes register modal</label>
+        </div>
+        <div class="test-item pending" id="test-2-9">
+            <input type="checkbox" id="check-2-9">
+            <label for="check-2-9">Escape key closes forgot password modal</label>
+        </div>
+        <div class="test-item pending" id="test-2-10">
+            <input type="checkbox" id="check-2-10">
+            <label for="check-2-10">Body scroll is restored when modal closes</label>
+        </div>
+        <div class="test-item pending" id="test-2-11">
+            <input type="checkbox" id="check-2-11">
+            <label for="check-2-11">Forms are reset when login modal closes</label>
+        </div>
+        <div class="test-item pending" id="test-2-12">
+            <input type="checkbox" id="check-2-12">
+            <label for="check-2-12">Forms are reset when register modal closes</label>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>4.3 Test Modal Switching</h2>
+        <div class="test-item pending" id="test-3-1">
+            <input type="checkbox" id="check-3-1">
+            <label for="check-3-1">"Kayıt Ol" link switches from login to register modal</label>
+        </div>
+        <div class="test-item pending" id="test-3-2">
+            <input type="checkbox" id="check-3-2">
+            <label for="check-3-2">"Giriş Yap" link switches from register to login modal</label>
+        </div>
+        <div class="test-item pending" id="test-3-3">
+            <input type="checkbox" id="check-3-3">
+            <label for="check-3-3">"Şifremi unuttum" link switches from login to forgot password modal</label>
+        </div>
+        <div class="test-item pending" id="test-3-4">
+            <input type="checkbox" id="check-3-4">
+            <label for="check-3-4">"Giriş sayfasına dön" switches from forgot password to login modal</label>
+        </div>
+        <div class="test-item pending" id="test-3-5">
+            <input type="checkbox" id="check-3-5">
+            <label for="check-3-5">Forms are cleared when switching between modals</label>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>4.4 Test Form Validation</h2>
+        <div class="test-item pending" id="test-4-1">
+            <input type="checkbox" id="check-4-1">
+            <label for="check-4-1">Empty email field shows validation error (login form)</label>
+        </div>
+        <div class="test-item pending" id="test-4-2">
+            <input type="checkbox" id="check-4-2">
+            <label for="check-4-2">Invalid email format shows validation error</label>
+        </div>
+        <div class="test-item pending" id="test-4-3">
+            <input type="checkbox" id="check-4-3">
+            <label for="check-4-3">Empty password field shows validation error</label>
+        </div>
+        <div class="test-item pending" id="test-4-4">
+            <input type="checkbox" id="check-4-4">
+            <label for="check-4-4">Password less than 6 characters shows validation error</label>
+        </div>
+        <div class="test-item pending" id="test-4-5">
+            <input type="checkbox" id="check-4-5">
+            <label for="check-4-5">Weak password shows complexity error (register form)</label>
+        </div>
+        <div class="test-item pending" id="test-4-6">
+            <input type="checkbox" id="check-4-6">
+            <label for="check-4-6">Mismatched passwords show error (register form)</label>
+        </div>
+        <div class="test-item pending" id="test-4-7">
+            <input type="checkbox" id="check-4-7">
+            <label for="check-4-7">Unchecked terms checkbox shows error (register form)</label>
+        </div>
+        <div class="test-item pending" id="test-4-8">
+            <input type="checkbox" id="check-4-8">
+            <label for="check-4-8">Validation summary appears with multiple errors</label>
+        </div>
+        <div class="test-item pending" id="test-4-9">
+            <input type="checkbox" id="check-4-9">
+            <label for="check-4-9">Errors clear when fields are corrected</label>
+        </div>
+        <div class="test-item pending" id="test-4-10">
+            <input type="checkbox" id="check-4-10">
+            <label for="check-4-10">Empty name field shows validation error (register form)</label>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>4.5 Test Visual Design and Responsiveness</h2>
+        <div class="test-item pending" id="test-5-1">
+            <input type="checkbox" id="check-5-1">
+            <label for="check-5-1">Modals use glassmorphism styling (backdrop blur visible)</label>
+        </div>
+        <div class="test-item pending" id="test-5-2">
+            <input type="checkbox" id="check-5-2">
+            <label for="check-5-2">#bde83a color is used correctly on buttons</label>
+        </div>
+        <div class="test-item pending" id="test-5-3">
+            <input type="checkbox" id="check-5-3">
+            <label for="check-5-3">Shine button animations work on hover</label>
+        </div>
+        <div class="test-item pending" id="test-5-4">
+            <input type="checkbox" id="check-5-4">
+            <label for="check-5-4">Modal animations are smooth (fade in/scale)</label>
+        </div>
+        <div class="test-item pending" id="test-5-5">
+            <input type="checkbox" id="check-5-5">
+            <label for="check-5-5">Responsive design works on mobile viewport (&lt; 768px)</label>
+        </div>
+        <div class="test-item pending" id="test-5-6">
+            <input type="checkbox" id="check-5-6">
+            <label for="check-5-6">Responsive design works on tablet viewport (768px - 1024px)</label>
+        </div>
+        <div class="test-item pending" id="test-5-7">
+            <input type="checkbox" id="check-5-7">
+            <label for="check-5-7">Responsive design works on desktop viewport (&gt; 1024px)</label>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>4.6 Test Integration with Existing Functionality</h2>
+        <div class="test-item pending" id="test-6-1">
+            <input type="checkbox" id="check-6-1">
+            <label for="check-6-1">Product dropdown still works correctly</label>
+        </div>
+        <div class="test-item pending" id="test-6-2">
+            <input type="checkbox" id="check-6-2">
+            <label for="check-6-2">Company dropdown still works correctly</label>
+        </div>
+        <div class="test-item pending" id="test-6-3">
+            <input type="checkbox" id="check-6-3">
+            <label for="check-6-3">Mobile drawer still works correctly</label>
+        </div>
+        <div class="test-item pending" id="test-6-4">
+            <input type="checkbox" id="check-6-4">
+            <label for="check-6-4">No JavaScript console errors</label>
+        </div>
+        <div class="test-item pending" id="test-6-5">
+            <input type="checkbox" id="check-6-5">
+            <label for="check-6-5">Escape key works for both modals and dropdowns</label>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test Summary</h2>
+        <div id="summary">
+            <p><strong>Total Tests:</strong> <span id="total">0</span></p>
+            <p><strong>Passed:</strong> <span id="passed">0</span></p>
+            <p><strong>Pending:</strong> <span id="pending">0</span></p>
+        </div>
+        <button onclick="updateSummary()">Update Summary</button>
+        <button onclick="resetTests()">Reset All Tests</button>
+    </div>
+
+    <script>
+        // Update test item status based on checkbox
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const testItem = this.closest('.test-item');
+                if (this.checked) {
+                    testItem.classList.remove('pending', 'fail');
+                    testItem.classList.add('pass');
+                } else {
+                    testItem.classList.remove('pass', 'fail');
+                    testItem.classList.add('pending');
+                }
+                updateSummary();
+            });
+        });
+
+        function updateSummary() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const total = checkboxes.length;
+            const passed = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const pending = total - passed;
+
+            document.getElementById('total').textContent = total;
+            document.getElementById('passed').textContent = passed;
+            document.getElementById('pending').textContent = pending;
+        }
+
+        function resetTests() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+                const testItem = checkbox.closest('.test-item');
+                testItem.classList.remove('pass', 'fail');
+                testItem.classList.add('pending');
+            });
+            updateSummary();
+        }
+
+        // Initialize summary on page load
+        updateSummary();
+    </script>
+</body>
+</html>

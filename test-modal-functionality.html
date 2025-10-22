@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Modal Functionality Tests</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .instructions {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+        
+        .instructions h2 {
+            margin-top: 0;
+            color: #1976D2;
+        }
+        
+        .instructions ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button.secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+        
+        button.secondary:hover {
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
+        }
+        
+        .console-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            max-height: 600px;
+            overflow-y: auto;
+            margin-top: 20px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .console-output pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .status.running {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status.complete {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .warning strong {
+            color: #856404;
+        }
+        
+        .test-links {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .test-links h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .test-links a {
+            display: inline-block;
+            margin: 5px 10px 5px 0;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .test-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Automated Modal Functionality Tests</h1>
+        <p class="subtitle">Comprehensive testing suite for authentication modal integration</p>
+        
+        <div class="instructions">
+            <h2>📋 How to Run Tests</h2>
+            <ol>
+                <li><strong>Open index.html</strong> in a new browser tab (keep this tab open)</li>
+                <li><strong>Open Developer Console</strong> (F12 or Right-click → Inspect → Console)</li>
+                <li><strong>Load the test script</strong> by clicking the button below</li>
+                <li><strong>Watch the tests run</strong> automatically in the console</li>
+                <li><strong>Review results</strong> - tests will show ✅ PASS or ❌ FAIL</li>
+            </ol>
+        </div>
+        
+        <div class="warning">
+            <strong>⚠️ Important:</strong> Make sure index.html is loaded and the page is fully rendered before running tests. 
+            The tests will interact with the actual page elements.
+        </div>
+        
+        <div id="status" class="status running" style="display: none;">
+            🔄 Tests Running...
+        </div>
+        
+        <div class="button-group">
+            <button onclick="loadAndRunTests()">▶️ Run Automated Tests</button>
+            <button class="secondary" onclick="openIndexPage()">🌐 Open index.html</button>
+            <button class="secondary" onclick="openManualTests()">📝 Manual Test Checklist</button>
+            <button class="secondary" onclick="clearConsole()">🗑️ Clear Console</button>
+        </div>
+        
+        <div class="console-output" id="console-output">
+            <pre id="console-content">Console output will appear here...</pre>
+        </div>
+        
+        <div class="test-links">
+            <h3>📚 Additional Resources</h3>
+            <a href="index.html" target="_blank">→ Open index.html</a>
+            <a href="test-modals.html" target="_blank">→ Manual Test Checklist</a>
+            <a href=".kiro/specs/auth-modal-integration/requirements.md" target="_blank">→ Requirements</a>
+            <a href=".kiro/specs/auth-modal-integration/design.md" target="_blank">→ Design Document</a>
+            <a href=".kiro/specs/auth-modal-integration/tasks.md" target="_blank">→ Task List</a>
+        </div>
+    </div>
+    
+    <script>
+        let consoleContent = [];
+        
+        // Intercept console methods
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        function addToConsole(message, type = 'log') {
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '❌' : type === 'warn' ? '⚠️' : '';
+            const formattedMessage = `[${timestamp}] ${prefix} ${message}`;
+            consoleContent.push(formattedMessage);
+            updateConsoleDisplay();
+        }
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToConsole(args.join(' '), 'log');
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addToConsole(args.join(' '), 'error');
+        };
+        
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            addToConsole(args.join(' '), 'warn');
+        };
+        
+        function updateConsoleDisplay() {
+            const consoleElement = document.getElementById('console-content');
+            consoleElement.textContent = consoleContent.join('\n');
+            const outputDiv = document.getElementById('console-output');
+            outputDiv.scrollTop = outputDiv.scrollHeight;
+        }
+        
+        function clearConsole() {
+            consoleContent = [];
+            updateConsoleDisplay();
+            console.log('Console cleared');
+        }
+        
+        function loadAndRunTests() {
+            const status = document.getElementById('status');
+            status.style.display = 'inline-block';
+            status.className = 'status running';
+            status.textContent = '🔄 Tests Running...';
+            
+            console.log('='.repeat(60));
+            console.log('🚀 Loading Automated Test Suite...');
+            console.log('='.repeat(60));
+            
+            // Check if index.html is accessible
+            const indexWindow = window.open('', 'indexPage');
+            if (!indexWindow || indexWindow.closed) {
+                console.error('❌ index.html is not open. Please open it first!');
+                status.className = 'status error';
+                status.textContent = '❌ Error: index.html not open';
+                return;
+            }
+            
+            // Load and execute the test script
+            const script = document.createElement('script');
+            script.src = 'automated-modal-tests.js';
+            script.onload = function() {
+                console.log('✅ Test script loaded successfully');
+                console.log('📝 Instructions: Open index.html and check the console there');
+                console.log('');
+                
+                setTimeout(() => {
+                    status.className = 'status complete';
+                    status.textContent = '✅ Test script loaded - Check index.html console';
+                }, 1000);
+            };
+            script.onerror = function() {
+                console.error('❌ Failed to load test script');
+                status.className = 'status error';
+                status.textContent = '❌ Failed to load test script';
+            };
+            
+            // Try to inject into index.html if it's open
+            try {
+                if (indexWindow.document) {
+                    indexWindow.document.head.appendChild(script.cloneNode(true));
+                    console.log('✅ Test script injected into index.html');
+                    console.log('📊 Check the console in index.html tab for test results');
+                }
+            } catch (e) {
+                console.warn('⚠️ Could not inject script into index.html');
+                console.log('📝 Manual step: Copy and paste automated-modal-tests.js into index.html console');
+            }
+        }
+        
+        function openIndexPage() {
+            window.open('index.html', 'indexPage');
+            console.log('🌐 Opening index.html in new tab...');
+        }
+        
+        function openManualTests() {
+            window.open('test-modals.html', '_blank');
+            console.log('📝 Opening manual test checklist...');
+        }
+        
+        // Initial message
+        console.log('🧪 Automated Modal Test Runner Ready');
+        console.log('Click "Run Automated Tests" to begin');
+    </script>
+</body>
+</html>
