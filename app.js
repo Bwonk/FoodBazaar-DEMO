@@ -20,6 +20,8 @@ class NavigationSystem {
         const productDropdown = document.getElementById('product-dropdown');
         const companyTrigger = document.getElementById('company-trigger');
         const companyDropdown = document.getElementById('company-dropdown');
+        const accountTrigger = document.getElementById('account-trigger');
+        const accountDropdown = document.getElementById('account-dropdown');
 
         productTrigger.addEventListener('click', (e) => {
             e.preventDefault();
@@ -33,8 +35,15 @@ class NavigationSystem {
             this.toggleDropdown('company', companyTrigger, companyDropdown);
         });
 
+        accountTrigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.toggleDropdown('account', accountTrigger, accountDropdown);
+        });
+
         this.setupDropdownKeyboardNavigation(productDropdown);
         this.setupDropdownKeyboardNavigation(companyDropdown);
+        this.setupAccountDropdown();
     }
 
     toggleDropdown(dropdownName, trigger, dropdown) {
@@ -51,7 +60,13 @@ class NavigationSystem {
         dropdown.classList.remove('hidden');
         dropdown.classList.add('visible');
         trigger.setAttribute('aria-expanded', 'true');
-        trigger.querySelector('.caret').classList.add('rotated');
+        
+        // Only rotate caret if it exists (not for account dropdown)
+        const caret = trigger.querySelector('.caret');
+        if (caret) {
+            caret.classList.add('rotated');
+        }
+        
         this.currentOpenDropdown = dropdownName;
         
         setTimeout(() => {
@@ -64,18 +79,124 @@ class NavigationSystem {
 
     closeAllDropdowns() {
         const dropdowns = [
-            { name: 'product', trigger: document.getElementById('product-trigger'), dropdown: document.getElementById('product-dropdown') },
-            { name: 'company', trigger: document.getElementById('company-trigger'), dropdown: document.getElementById('company-dropdown') }
+            { name: 'product', trigger: document.getElementById('product-trigger'), dropdown: document.getElementById('product-dropdown'), hasCaret: true },
+            { name: 'company', trigger: document.getElementById('company-trigger'), dropdown: document.getElementById('company-dropdown'), hasCaret: true },
+            { name: 'account', trigger: document.getElementById('account-trigger'), dropdown: document.getElementById('account-dropdown'), hasCaret: false }
         ];
 
-        dropdowns.forEach(({ trigger, dropdown }) => {
+        dropdowns.forEach(({ trigger, dropdown, hasCaret }) => {
             dropdown.classList.add('hidden');
             dropdown.classList.remove('visible');
             trigger.setAttribute('aria-expanded', 'false');
-            trigger.querySelector('.caret').classList.remove('rotated');
+            if (hasCaret) {
+                trigger.querySelector('.caret')?.classList.remove('rotated');
+            }
         });
 
         this.currentOpenDropdown = null;
+    }
+
+    setupAccountDropdown() {
+        const loginTab = document.getElementById('auth-login-tab');
+        const registerTab = document.getElementById('auth-register-tab');
+        const accountDropdown = document.getElementById('account-dropdown');
+
+        // Tab switching with click
+        loginTab.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.switchAuthTab('login');
+        });
+
+        registerTab.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.switchAuthTab('register');
+        });
+
+        // Keyboard navigation for tabs (Arrow keys)
+        accountDropdown.addEventListener('keydown', (e) => {
+            const tabs = [loginTab, registerTab];
+            const currentTab = document.activeElement;
+            const currentIndex = tabs.indexOf(currentTab);
+
+            if (currentIndex !== -1) {
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        const prevTab = currentIndex > 0 ? tabs[currentIndex - 1] : tabs[tabs.length - 1];
+                        prevTab.focus();
+                        this.switchAuthTab(prevTab.id === 'auth-login-tab' ? 'login' : 'register');
+                        break;
+                    
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        const nextTab = currentIndex < tabs.length - 1 ? tabs[currentIndex + 1] : tabs[0];
+                        nextTab.focus();
+                        this.switchAuthTab(nextTab.id === 'auth-login-tab' ? 'login' : 'register');
+                        break;
+                }
+            }
+        });
+
+        // Handle tab actions (open modals or navigate)
+        loginTab.addEventListener('click', () => {
+            // Open login modal or navigate to login page
+            this.handleAuthAction('login');
+        });
+
+        registerTab.addEventListener('click', () => {
+            // Open register modal or navigate to register page
+            this.handleAuthAction('register');
+        });
+    }
+
+    switchAuthTab(tabName) {
+        const loginTab = document.getElementById('auth-login-tab');
+        const registerTab = document.getElementById('auth-register-tab');
+
+        if (tabName === 'login') {
+            // Activate login tab
+            loginTab.classList.add('bg-[#bde83a]', 'text-black', 'shadow-sm');
+            loginTab.classList.remove('text-white/80', 'hover:text-white');
+            loginTab.setAttribute('aria-selected', 'true');
+            loginTab.setAttribute('tabindex', '0');
+
+            // Deactivate register tab
+            registerTab.classList.remove('bg-[#bde83a]', 'text-black', 'shadow-sm');
+            registerTab.classList.add('text-white/80', 'hover:text-white');
+            registerTab.setAttribute('aria-selected', 'false');
+            registerTab.setAttribute('tabindex', '-1');
+        } else {
+            // Activate register tab
+            registerTab.classList.add('bg-[#bde83a]', 'text-black', 'shadow-sm');
+            registerTab.classList.remove('text-white/80', 'hover:text-white');
+            registerTab.setAttribute('aria-selected', 'true');
+            registerTab.setAttribute('tabindex', '0');
+
+            // Deactivate login tab
+            loginTab.classList.remove('bg-[#bde83a]', 'text-black', 'shadow-sm');
+            loginTab.classList.add('text-white/80', 'hover:text-white');
+            loginTab.setAttribute('aria-selected', 'false');
+            loginTab.setAttribute('tabindex', '-1');
+        }
+    }
+
+    handleAuthAction(action) {
+        // Close the dropdown
+        this.closeAllDropdowns();
+
+        // Check if authRegister.html modals exist
+        if (typeof openLoginModal === 'function' && action === 'login') {
+            openLoginModal();
+        } else if (typeof openRegisterModal === 'function' && action === 'register') {
+            openRegisterModal();
+        } else {
+            // Fallback: navigate to auth pages
+            if (action === 'login') {
+                window.location.href = '/Account/Login';
+            } else {
+                window.location.href = '/Account/Register';
+            }
+        }
     }
 
     setupMobileDrawer() {
@@ -231,13 +352,16 @@ class NavigationSystem {
             if (this.currentOpenDropdown) {
                 const productDropdown = document.getElementById('product-dropdown');
                 const companyDropdown = document.getElementById('company-dropdown');
+                const accountDropdown = document.getElementById('account-dropdown');
                 const productTrigger = document.getElementById('product-trigger');
                 const companyTrigger = document.getElementById('company-trigger');
+                const accountTrigger = document.getElementById('account-trigger');
 
                 const isClickInsideProduct = productDropdown.contains(e.target) || productTrigger.contains(e.target);
                 const isClickInsideCompany = companyDropdown.contains(e.target) || companyTrigger.contains(e.target);
+                const isClickInsideAccount = accountDropdown.contains(e.target) || accountTrigger.contains(e.target);
 
-                if (!isClickInsideProduct && !isClickInsideCompany) {
+                if (!isClickInsideProduct && !isClickInsideCompany && !isClickInsideAccount) {
                     this.closeAllDropdowns();
                 }
             }
@@ -250,11 +374,16 @@ class NavigationSystem {
                 if (this.isDrawerOpen) {
                     this.closeDrawer();
                 } else if (this.currentOpenDropdown) {
+                    const currentDropdown = this.currentOpenDropdown;
                     this.closeAllDropdowns();
-                    if (this.currentOpenDropdown === 'product') {
+                    
+                    // Return focus to the trigger button
+                    if (currentDropdown === 'product') {
                         document.getElementById('product-trigger').focus();
-                    } else if (this.currentOpenDropdown === 'company') {
+                    } else if (currentDropdown === 'company') {
                         document.getElementById('company-trigger').focus();
+                    } else if (currentDropdown === 'account') {
+                        document.getElementById('account-trigger').focus();
                     }
                 }
             }
