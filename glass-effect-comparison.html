@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Efekt Karşılaştırması</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .example-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .glass-preview {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-preview::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.1) 75%),
+                        linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.1) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            opacity: 0.3;
+        }
+        .code-snippet {
+            background: rgba(0, 0, 0, 0.3);
+            color: #bde83a;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            overflow-x: auto;
+            margin-top: 0.5rem;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .badge-old {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .badge-new {
+            background: rgba(34, 197, 94, 0.2);
+            color: #86efac;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        .badge-navbar {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-4xl font-bold text-white text-center mb-4">
+            🔍 Glass Efekt Karşılaştırması
+        </h1>
+        <p class="text-white/80 text-center mb-8">
+            Navbar ve Dropdown'ların glass efektlerinin tutarlılığı
+        </p>
+
+        <div class="comparison-grid">
+            <!-- Navbar (Referans) -->
+            <div class="example-card">
+                <span class="badge badge-navbar">REFERANS</span>
+                <h2 class="text-2xl font-bold text-white mb-4">Navbar</h2>
+                <div class="glass-preview bg-white/10 backdrop-blur-sm border border-white/15"
+                     style="box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 40px -10px rgba(0,0,0,.45);">
+                    <span class="text-white font-semibold relative z-10">FoodBazaar</span>
+                </div>
+                <div class="text-white/90 space-y-2 text-sm">
+                    <p><strong>Background:</strong> white/10 (10% opacity)</p>
+                    <p><strong>Blur:</strong> backdrop-blur-sm (4px)</p>
+                    <p><strong>Border:</strong> white/15 (15% opacity)</p>
+                    <p><strong>Shadow:</strong> Inset + drop shadow</p>
+                </div>
+                <div class="code-snippet">
+bg-white/10 backdrop-blur-sm
+border border-white/15
+                </div>
+            </div>
+
+            <!-- Dropdown (Önce) -->
+            <div class="example-card">
+                <span class="badge badge-old">ÖNCE</span>
+                <h2 class="text-2xl font-bold text-white mb-4">Dropdown (Eski)</h2>
+                <div class="glass-preview bg-white/30 backdrop-blur-xl border border-white/20"
+                     style="backdrop-filter: blur(20px) saturate(120%);">
+                    <span class="text-white font-semibold relative z-10">Hesap Menüsü</span>
+                </div>
+                <div class="text-white/90 space-y-2 text-sm">
+                    <p><strong>Background:</strong> white/30 (30% opacity) ❌</p>
+                    <p><strong>Blur:</strong> 20px ❌</p>
+                    <p><strong>Border:</strong> white/20 (20% opacity) ❌</p>
+                    <p><strong>Saturate:</strong> 120% ❌</p>
+                </div>
+                <div class="code-snippet">
+bg-white/30 backdrop-blur-[20px]
+border border-white/20
+saturate(120%)
+                </div>
+                <div class="mt-3 p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                    <p class="text-red-200 text-xs">
+                        ⚠️ Navbar'dan çok farklı!<br>
+                        3x daha opak, 5x daha fazla blur
+                    </p>
+                </div>
+            </div>
+
+            <!-- Dropdown (Sonra) -->
+            <div class="example-card">
+                <span class="badge badge-new">SONRA</span>
+                <h2 class="text-2xl font-bold text-white mb-4">Dropdown (Yeni)</h2>
+                <div class="glass-preview bg-white/10 backdrop-blur-sm border border-white/15"
+                     style="box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 40px -10px rgba(0,0,0,.45);">
+                    <span class="text-white font-semibold relative z-10">Hesap Menüsü</span>
+                </div>
+                <div class="text-white/90 space-y-2 text-sm">
+                    <p><strong>Background:</strong> white/10 (10% opacity) ✅</p>
+                    <p><strong>Blur:</strong> backdrop-blur-sm (4px) ✅</p>
+                    <p><strong>Border:</strong> white/15 (15% opacity) ✅</p>
+                    <p><strong>Shadow:</strong> Inset + drop shadow ✅</p>
+                </div>
+                <div class="code-snippet">
+bg-white/10 backdrop-blur-sm
+border border-white/15
+                </div>
+                <div class="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
+                    <p class="text-green-200 text-xs">
+                        ✅ Navbar ile birebir aynı!<br>
+                        Tutarlı görünüm sağlandı
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detaylı Karşılaştırma Tablosu -->
+        <div class="mt-12 max-w-4xl mx-auto">
+            <div class="example-card">
+                <h2 class="text-2xl font-bold text-white mb-6 text-center">📊 Detaylı Karşılaştırma</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-white">
+                        <thead>
+                            <tr class="border-b border-white/20">
+                                <th class="text-left py-3 px-4">Özellik</th>
+                                <th class="text-center py-3 px-4">Navbar</th>
+                                <th class="text-center py-3 px-4">Dropdown (Önce)</th>
+                                <th class="text-center py-3 px-4">Dropdown (Sonra)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b border-white/10">
+                                <td class="py-3 px-4 font-semibold">Background Opacity</td>
+                                <td class="text-center py-3 px-4">10%</td>
+                                <td class="text-center py-3 px-4 text-red-300">30% ❌</td>
+                                <td class="text-center py-3 px-4 text-green-300">10% ✅</td>
+                            </tr>
+                            <tr class="border-b border-white/10">
+                                <td class="py-3 px-4 font-semibold">Blur Amount</td>
+                                <td class="text-center py-3 px-4">4px (sm)</td>
+                                <td class="text-center py-3 px-4 text-red-300">20px ❌</td>
+                                <td class="text-center py-3 px-4 text-green-300">4px (sm) ✅</td>
+                            </tr>
+                            <tr class="border-b border-white/10">
+                                <td class="py-3 px-4 font-semibold">Border Opacity</td>
+                                <td class="text-center py-3 px-4">15%</td>
+                                <td class="text-center py-3 px-4 text-red-300">20% ❌</td>
+                                <td class="text-center py-3 px-4 text-green-300">15% ✅</td>
+                            </tr>
+                            <tr class="border-b border-white/10">
+                                <td class="py-3 px-4 font-semibold">Saturate</td>
+                                <td class="text-center py-3 px-4">-</td>
+                                <td class="text-center py-3 px-4 text-red-300">120% ❌</td>
+                                <td class="text-center py-3 px-4 text-green-300">- ✅</td>
+                            </tr>
+                            <tr class="border-b border-white/10">
+                                <td class="py-3 px-4 font-semibold">Box Shadow</td>
+                                <td class="text-center py-3 px-4">Inset + Drop</td>
+                                <td class="text-center py-3 px-4 text-red-300">Farklı ❌</td>
+                                <td class="text-center py-3 px-4 text-green-300">Aynı ✅</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4 font-semibold">Görsel Tutarlılık</td>
+                                <td class="text-center py-3 px-4">Referans</td>
+                                <td class="text-center py-3 px-4 text-red-300">Farklı ❌</td>
+                                <td class="text-center py-3 px-4 text-green-300">Aynı ✅</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Opacity Karşılaştırması -->
+        <div class="mt-12 max-w-6xl mx-auto">
+            <div class="example-card">
+                <h2 class="text-2xl font-bold text-white mb-6 text-center">🎨 Opacity Seviyeleri</h2>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div>
+                        <div class="h-24 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg flex items-center justify-center">
+                            <span class="text-white text-sm font-semibold">5%</span>
+                        </div>
+                        <p class="text-white/70 text-xs text-center mt-2">Çok şeffaf</p>
+                    </div>
+                    <div>
+                        <div class="h-24 bg-white/10 backdrop-blur-sm border border-white/15 rounded-lg flex items-center justify-center ring-2 ring-green-400">
+                            <span class="text-white text-sm font-semibold">10%</span>
+                        </div>
+                        <p class="text-green-300 text-xs text-center mt-2 font-semibold">✅ Kullanılan</p>
+                    </div>
+                    <div>
+                        <div class="h-24 bg-white/20 backdrop-blur-sm border border-white/20 rounded-lg flex items-center justify-center">
+                            <span class="text-white text-sm font-semibold">20%</span>
+                        </div>
+                        <p class="text-white/70 text-xs text-center mt-2">Orta</p>
+                    </div>
+                    <div>
+                        <div class="h-24 bg-white/30 backdrop-blur-sm border border-white/25 rounded-lg flex items-center justify-center ring-2 ring-red-400">
+                            <span class="text-white text-sm font-semibold">30%</span>
+                        </div>
+                        <p class="text-red-300 text-xs text-center mt-2 font-semibold">❌ Eski</p>
+                    </div>
+                    <div>
+                        <div class="h-24 bg-white/50 backdrop-blur-sm border border-white/30 rounded-lg flex items-center justify-center">
+                            <span class="text-white text-sm font-semibold">50%</span>
+                        </div>
+                        <p class="text-white/70 text-xs text-center mt-2">Yarı opak</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blur Karşılaştırması -->
+        <div class="mt-12 max-w-6xl mx-auto">
+            <div class="example-card">
+                <h2 class="text-2xl font-bold text-white mb-6 text-center">💨 Blur Seviyeleri</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                        <div class="h-24 bg-white/10 backdrop-blur-none border border-white/15 rounded-lg flex items-center justify-center">
+                            <span class="text-white text-sm font-semibold">None</span>
+                        </div>
+                        <p class="text-white/70 text-xs text-center mt-2">0px</p>
+                    </div>
+                    <div>
+                        <div class="h-24 bg-white/10 backdrop-blur-sm border border-white/15 rounded-lg flex items-center justify-center ring-2 ring-green-400">
+                            <span class="text-white text-sm font-semibold">SM</span>
+                        </div>
+                        <p class="text-green-300 text-xs text-center mt-2 font-semibold">✅ 4px</p>
+                    </div>
+                    <div>
+                        <div class="h-24 bg-white/10 backdrop-blur-md border border-white/15 rounded-lg flex items-center justify-center">
+                            <span class="text-white text-sm font-semibold">MD</span>
+                        </div>
+                        <p class="text-white/70 text-xs text-center mt-2">12px</p>
+                    </div>
+                    <div>
+                        <div class="h-24 bg-white/10 backdrop-blur-xl border border-white/15 rounded-lg flex items-center justify-center ring-2 ring-red-400">
+                            <span class="text-white text-sm font-semibold">XL</span>
+                        </div>
+                        <p class="text-red-300 text-xs text-center mt-2 font-semibold">❌ 24px</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sonuç -->
+        <div class="mt-12 max-w-4xl mx-auto">
+            <div class="example-card bg-green-500/10 border-green-500/30">
+                <h2 class="text-2xl font-bold text-white mb-4 text-center">✅ Sonuç</h2>
+                <div class="text-white/90 space-y-3">
+                    <p class="text-center text-lg">
+                        Tüm dropdown menüler artık navbar ile <strong>birebir aynı</strong> glass efektine sahip!
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-4 mt-6">
+                        <div class="text-center p-4 bg-white/5 rounded-lg">
+                            <div class="text-3xl mb-2">🎯</div>
+                            <p class="font-semibold">Tutarlılık</p>
+                            <p class="text-sm text-white/70">Tüm elementler aynı</p>
+                        </div>
+                        <div class="text-center p-4 bg-white/5 rounded-lg">
+                            <div class="text-3xl mb-2">⚡</div>
+                            <p class="font-semibold">Performans</p>
+                            <p class="text-sm text-white/70">Daha az blur = hızlı</p>
+                        </div>
+                        <div class="text-center p-4 bg-white/5 rounded-lg">
+                            <div class="text-3xl mb-2">👁️</div>
+                            <p class="font-semibold">Okunabilirlik</p>
+                            <p class="text-sm text-white/70">Daha net içerik</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-white/70 py-8 mt-8">
+            <p class="mb-2">📚 Detaylı bilgi için: <code class="bg-black/30 px-2 py-1 rounded">NAVBAR-DROPDOWN-FIX.md</code></p>
+            <p class="text-sm">Glass Efekt Tutarlılığı v1.0</p>
+        </div>
+    </div>
+</body>
+</html>

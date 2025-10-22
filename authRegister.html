@@ -100,6 +100,64 @@
             padding: 1rem;
             margin-bottom: 1rem;
         }
+
+        /* Glassmorphism Card System */
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.3);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: rgba(31, 38, 135, 0.2);
+            --glass-blur: 32px;
+        }
+
+        .glass-card {
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px 0 var(--glass-shadow);
+            backdrop-saturate: 150%;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: scale(1.01);
+        }
+
+        /* Glass Card Variants */
+        .glass-card--modal {
+            max-width: 28rem;
+            width: 100%;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        @media (min-width: 768px) {
+            .glass-card--modal {
+                width: 90%;
+            }
+        }
+
+        .glass-card--sm {
+            padding: 1.5rem;
+            max-width: 20rem;
+        }
+
+        .glass-card--lg {
+            padding: 3rem;
+            max-width: 48rem;
+        }
+
+        /* Glass Card with no hover effect */
+        .glass-card--static {
+            transition: none;
+        }
+
+        .glass-card--static:hover {
+            transform: none;
+        }
     </style>
 </head>
 <body class="min-h-screen glass-bg">
@@ -126,7 +184,7 @@
         ></div>
         
         <div class="fixed inset-0 flex items-center justify-center p-4">
-            <div class="relative max-w-md w-full md:w-[90%] p-8 rounded-3xl backdrop-blur-2xl bg-white/30 border border-white/20 shadow-2xl backdrop-saturate-150 hover:scale-[1.01] transition-all duration-300 modal-enter">
+            <div class="glass-card glass-card--modal modal-enter">
                 <button 
                     onclick="closeLoginModal()" 
                     class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-all duration-200"
@@ -236,7 +294,7 @@
         ></div>
         
         <div class="fixed inset-0 flex items-center justify-center p-4">
-            <div class="relative max-w-md w-full md:w-[90%] p-8 rounded-3xl backdrop-blur-2xl bg-white/30 border border-white/20 shadow-2xl backdrop-saturate-150 hover:scale-[1.01] transition-all duration-300 modal-enter">
+            <div class="glass-card glass-card--modal modal-enter">
                 <button 
                     onclick="closeRegisterModal()" 
                     class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-all duration-200"
@@ -369,7 +427,7 @@
         ></div>
         
         <div class="fixed inset-0 flex items-center justify-center p-4">
-            <div class="relative max-w-md w-full md:w-[90%] p-8 rounded-3xl backdrop-blur-2xl bg-white/30 border border-white/20 shadow-2xl backdrop-saturate-150 hover:scale-[1.01] transition-all duration-300 modal-enter">
+            <div class="glass-card glass-card--modal modal-enter">
                 <button 
                     onclick="closeForgotPasswordModal()" 
                     class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-all duration-200"
