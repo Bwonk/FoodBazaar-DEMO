@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,43 +13,50 @@
             background-position: center;
             background-repeat: no-repeat;
         }
-        
+
         .floating-icon {
             animation: float 3s ease-in-out infinite;
         }
-        
+
         .floating-icon:nth-child(2n) {
             animation-delay: -1s;
         }
-        
+
         .floating-icon:nth-child(3n) {
             animation-delay: -2s;
         }
-        
+
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
-        
+
         .input-shadow {
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         .submit-btn {
             background: linear-gradient(135deg, #FF3B30 0%, #FF6B35 100%);
         }
-        
+
         .submit-btn:hover {
             background: linear-gradient(135deg, #E6342A 0%, #E55A2B 100%);
             transform: scale(1.05);
         }
-        
+
         .secondary-btn {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
-        
+
         .secondary-btn:hover {
             background: rgba(255, 255, 255, 0.3);
         }
@@ -64,73 +72,73 @@
             outline: 1px solid transparent;
             box-shadow: 0 0 0 3px #bde83a;
         }
-        
+
         .dotted-bg {
-            background-image: radial-gradient(ellipse at center, rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-image: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
             background-size: 12px 12px;
         }
-        
+
         .grid-pattern {
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 20px 20px;
         }
-        
+
         .dropdown-panel {
             transition: opacity 0.15s ease-in-out;
         }
-        
+
         .dropdown-panel.hidden {
             opacity: 0;
             pointer-events: none;
         }
-        
+
         .dropdown-panel.visible {
             opacity: 1;
             pointer-events: auto;
         }
-        
+
         .caret {
             transition: transform 0.2s ease-in-out;
         }
-        
+
         .caret.rotated {
             transform: rotate(180deg);
         }
-        
+
         .drawer {
             transition: transform 0.3s ease-in-out;
         }
-        
+
         .drawer.closed {
             transform: translateX(100%);
         }
-        
+
         .drawer.open {
             transform: translateX(0);
         }
-        
+
         .overlay {
             transition: opacity 0.3s ease-in-out;
         }
-        
+
         .overlay.hidden {
             opacity: 0;
             pointer-events: none;
         }
-        
+
         .overlay.visible {
             opacity: 1;
             pointer-events: auto;
         }
-        
+
         /* Footer link hover effect */
         .footer-link {
             position: relative;
             display: inline-block;
         }
-        
+
         .footer-link::after {
             content: '';
             position: absolute;
@@ -141,61 +149,64 @@
             background: currentColor;
             transition: width 0.3s ease;
         }
-        
+
         .footer-link:hover::after {
             width: 100%;
         }
-        
+
         .social-icon:focus-visible {
             outline: 1px solid transparent;
             box-shadow: 0 0 0 3px #A5C543;
         }
-        
+
         /* Authentication Modal Styles */
         @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: scale(0.95); 
+            from {
+                opacity: 0;
+                transform: scale(0.95);
             }
-            to { 
-                opacity: 1; 
-                transform: scale(1); 
+
+            to {
+                opacity: 1;
+                transform: scale(1);
             }
         }
-        
+
         @keyframes fadeOut {
-            from { 
-                opacity: 1; 
-                transform: scale(1); 
+            from {
+                opacity: 1;
+                transform: scale(1);
             }
-            to { 
-                opacity: 0; 
-                transform: scale(0.95); 
+
+            to {
+                opacity: 0;
+                transform: scale(0.95);
             }
         }
-        
+
         .modal-enter {
             animation: fadeIn 0.3s ease-out forwards;
         }
-        
+
         .modal-exit {
             animation: fadeOut 0.3s ease-out forwards;
         }
-        
+
         @keyframes shine {
             0% {
                 transform: translateX(-100%) skewX(-15deg);
             }
+
             100% {
                 transform: translateX(200%) skewX(-15deg);
             }
         }
-        
+
         .shine-button {
             position: relative;
             overflow: hidden;
         }
-        
+
         .shine-button::before {
             content: '';
             position: absolute;
@@ -203,20 +214,18 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            );
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.4),
+                    transparent);
             transform: translateX(-100%) skewX(-15deg);
             transition: none;
         }
-        
+
         .shine-button:hover::before {
             animation: shine 0.6s ease-out;
         }
-        
+
         .shine-continuous::before {
             animation: shine 2s ease-in-out infinite;
             animation-delay: 1s;
@@ -300,10 +309,12 @@
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gradient-to-b from-black via-gray-900 to-[#1B1E24] text-white">
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out" id="navbar">
         <div class="w-full px-4 sm:px-6 lg:px-8 pt-4">
-            <div class=" relative max-w-6xl mx-auto bg-white/10 backdrop-blur-sm border border-white/15 rounded-[24px] md:rounded-[28px] overflow-visible" style="box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 40px -10px rgba(0,0,0,.45);">
+            <div class=" relative max-w-6xl mx-auto bg-white/10 backdrop-blur-sm border border-white/15 rounded-[24px] md:rounded-[28px] overflow-visible"
+                style="box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 40px -10px rgba(0,0,0,.45);">
                 <div class="nav-shell relative">
                     <nav class="relative flex items-center justify-between px-6 py-4">
                         <div class="flex items-center">
@@ -311,101 +322,80 @@
                         </div>
                         <div class="hidden md:flex items-center space-x-8">
                             <div class="relative">
-                                <button 
-                                    id="product-trigger"
+                                <button id="product-trigger"
                                     class="flex items-center space-x-1 text-white/80 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2"
-                                    aria-haspopup="menu"
-                                    aria-expanded="false"
-                                >
+                                    aria-haspopup="menu" aria-expanded="false">
                                     <span>Hizmetler</span>
                                     <svg class="w-4 h-4 caret" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
                                     </svg>
                                 </button>
                             </div>
 
                             <div class="relative">
-                                <button 
-                                    id="company-trigger"
+                                <button id="company-trigger"
                                     class="flex items-center space-x-1 text-white/80 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2"
-                                    aria-haspopup="menu"
-                                    aria-expanded="false"
-                                >
+                                    aria-haspopup="menu" aria-expanded="false">
                                     <span>Şirket</span>
                                     <svg class="w-4 h-4 caret" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
                                     </svg>
                                 </button>
                             </div>
 
-                            <a href="#" class="text-white/80 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2">Fiyatlar</a>
+                            <a href="#"
+                                class="text-white/80 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2">Fiyatlar</a>
                         </div>
 
                         <div class="flex items-center space-x-4">
                             <div class="relative">
-                                <button 
-                                    id="account-trigger"
-                                    class="w-10 h-10 bg-white/20 hover:bg-white/30 text-white/80 hover:text-white rounded-full flex items-center justify-center transition-all focus-ring" 
-                                    aria-label="User account"
-                                    aria-haspopup="menu"
-                                    aria-expanded="false"
-                                >
+                                <button id="account-trigger"
+                                    class="w-10 h-10 bg-white/20 hover:bg-white/30 text-white/80 hover:text-white rounded-full flex items-center justify-center transition-all focus-ring"
+                                    aria-label="User account" aria-haspopup="menu" aria-expanded="false">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+                                        </path>
                                     </svg>
                                 </button>
                             </div>
-                            
-                            <button 
-                                id="mobile-menu-trigger"
+
+                            <button id="mobile-menu-trigger"
                                 class="md:hidden text-white/80 hover:text-white focus-ring rounded-lg p-2"
-                                aria-label="Open mobile menu"
-                            >
+                                aria-label="Open mobile menu">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 6h16M4 12h16M4 18h16"></path>
                                 </svg>
                             </button>
                         </div>
 
                         <!-- hesap dropdown -->
-                        <div
-                                id="account-dropdown"
-                                class="absolute top-full right-0 mt-2 w-[min(22rem,calc(100vw-2rem))] 
+                        <div id="account-dropdown" class="absolute top-full right-0 mt-2 w-[min(22rem,calc(100vw-2rem))] 
                                         bg-white/30 backdrop-blur-xl rounded-[20px] border border-white/15
-                                        z-50 hidden overflow-hidden"
-                                role="menu"
-                                style="box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 40px -10px rgba(0,0,0,.45);"
-                                >
-                                <div class="p-4 space-y-6">
-                                    <!-- Toggle wrapper should be transparent so blur isn't applied twice -->
-                                    <div role="tablist" aria-label="Authentication options"
-                                        class="bg-transparent rounded-[16px] p-1 flex gap-2">
-                                    <button
-                                        id="auth-login-tab"
-                                        role="tab"
-                                        aria-selected="true"
-                                        aria-controls="auth-login-panel"
-                                        tabindex="0"
+                                        z-50 hidden overflow-hidden" role="menu"
+                            style="box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 40px -10px rgba(0,0,0,.45);">
+                            <div class="p-4 space-y-6">
+                                <!-- Toggle wrapper should be transparent so blur isn't applied twice -->
+                                <div role="tablist" aria-label="Authentication options"
+                                    class="bg-transparent rounded-[16px] p-1 flex gap-2">
+                                    <button id="auth-login-tab" role="tab" aria-selected="true"
+                                        aria-controls="auth-login-panel" tabindex="0"
                                         class="flex-1 px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-200
-                                            text-black bg-[#d7ff56]/95 shadow-sm ring-1 ring-white/30 focus:outline-none"
-                                    >
+                                            text-black bg-[#d7ff56]/95 shadow-sm ring-1 ring-white/30 focus:outline-none">
                                         Giriş Yap
                                     </button>
 
-                                    <button
-                                        id="auth-register-tab"
-                                        role="tab"
-                                        aria-selected="false"
-                                        aria-controls="auth-register-panel"
-                                        tabindex="-1"
-                                        class="flex-1 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-200
-                                            text-white/90 hover:text-white bg-white/8"
-                                    >
+                                    <button id="auth-register-tab" role="tab" aria-selected="false"
+                                        aria-controls="auth-register-panel" tabindex="-1" class="flex-1 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-200
+                                            text-white/90 hover:text-white bg-white/8">
                                         Kayıt Ol
                                     </button>
-                                    </div>
+                                </div>
 
-                                    <!-- Profil butonu (altında yer alacak)
+                                <!-- Profil butonu (altında yer alacak)
                                     <div>
                                     <button class="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-white/6 text-white/90 hover:bg-white/10 transition">
                                         <svg class="w-5 h-5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -432,20 +422,21 @@
             </div>
         </div>
 
-        <div 
-            id="product-dropdown"
+        <div id="product-dropdown"
             class="absolute left-4 right-4 top-full mt-1 sm:left-6 sm:right-6 lg:left-8 lg:right-8 top-[88px] max-w-6xl mx-auto bg-white/10 backdrop-blur-sm border border-white/15 rounded-[20px] z-50 hidden"
-            role="menu"
-            style="box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 40px -10px rgba(0,0,0,.45);"
-        >
+            role="menu" style="box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 40px -10px rgba(0,0,0,.45);">
             <div class="p-4">
                 <div class="grid grid-cols-[1fr_0.32fr] gap-4">
                     <div class="grid grid-cols-3 gap-4 border-r border-gray-700 pr-4">
-                        <div class="group p-4 bg-white-100/10  input-shadow rounded-lg transition-colors grid-pattern focus-ring" tabindex="0" role="menuitem">
+                        <div class="group p-4 bg-white-100/10  input-shadow rounded-lg transition-colors grid-pattern focus-ring"
+                            tabindex="0" role="menuitem">
                             <div class="flex flex-col space-y-3">
                                 <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                                    <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                        </path>
                                     </svg>
                                 </div>
                                 <div>
@@ -455,11 +446,15 @@
                             </div>
                         </div>
 
-                        <div class="group p-4 bg-white-100/10 input-shadow rounded-lg hover:border-gray-600 transition-colors grid-pattern focus-ring" tabindex="0" role="menuitem">
+                        <div class="group p-4 bg-white-100/10 input-shadow rounded-lg hover:border-gray-600 transition-colors grid-pattern focus-ring"
+                            tabindex="0" role="menuitem">
                             <div class="flex flex-col space-y-3">
                                 <div class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
-                                    <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
+                                    <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z">
+                                        </path>
                                     </svg>
                                 </div>
                                 <div>
@@ -469,11 +464,15 @@
                             </div>
                         </div>
 
-                        <div class="group p-4 bg-white-100/100 input-shadow rounded-lg hover:border-gray-600 transition-colors grid-pattern focus-ring" tabindex="0" role="menuitem">
+                        <div class="group p-4 bg-white-100/100 input-shadow rounded-lg hover:border-gray-600 transition-colors grid-pattern focus-ring"
+                            tabindex="0" role="menuitem">
                             <div class="flex flex-col space-y-3">
                                 <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                                    <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                                        </path>
                                     </svg>
                                 </div>
                                 <div>
@@ -487,57 +486,72 @@
                     <div class="pl-4">
                         <ul class="space-y-2" role="none">
                             <li>
-                                <a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2" role="menuitem">
+                                <a href="#"
+                                    class="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2"
+                                    role="menuitem">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                                        </path>
                                     </svg>
                                     <span>Forum</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2" role="menuitem">
+                                <a href="#"
+                                    class="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2"
+                                    role="menuitem">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z">
+                                        </path>
                                     </svg>
                                     <span>Kurallar</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2" role="menuitem">
+                                <a href="#"
+                                    class="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2"
+                                    role="menuitem">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                                     </svg>
                                     <span>Komisyon hesapla</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2" role="menuitem">
+                                <a href="#"
+                                    class="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2"
+                                    role="menuitem">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                        </path>
                                     </svg>
                                     <span>Security</span>
                                 </a>
                             </li>
-                          
+
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div 
-            id="company-dropdown"
+        <div id="company-dropdown"
             class="absolute left-4 right-4 top-full mt-1 sm:left-6 sm:right-6 lg:left-8 lg:right-8 top-[88px] max-w-6xl mx-auto bg-white/10 backdrop-blur-sm border border-white/15 rounded-[20px] z-50 hidden"
-            role="menu"
-            style="box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 40px -10px rgba(0,0,0,.45);"
-        >
+            role="menu" style="box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 40px -10px rgba(0,0,0,.45);">
             <div class="p-4">
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="group p-4 bg-white-100/10 input-shadow rounded-lg  transition-colors grid-pattern focus-ring" tabindex="0" role="menuitem">
+                    <div class="group p-4 bg-white-100/10 input-shadow rounded-lg  transition-colors grid-pattern focus-ring"
+                        tabindex="0" role="menuitem">
                         <div class="flex flex-col space-y-3">
                             <div class="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center">
-                                <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
                             <div>
@@ -547,11 +561,14 @@
                         </div>
                     </div>
 
-                    <div class="group p-4 bg-white-100/10 input-shadow rounded-lg transition-colors grid-pattern focus-ring" tabindex="0" role="menuitem">
+                    <div class="group p-4 bg-white-100/10 input-shadow rounded-lg transition-colors grid-pattern focus-ring"
+                        tabindex="0" role="menuitem">
                         <div class="flex flex-col space-y-3">
                             <div class="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center">
                                 <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2V6">
+                                    </path>
                                 </svg>
                             </div>
                             <div>
@@ -565,25 +582,18 @@
         </div>
     </header>
 
-    <div 
-        id="mobile-overlay"
-        class="fixed inset-0 bg-black/50 z-40 overlay hidden"
-    ></div>
+    <div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 overlay hidden"></div>
 
-    <div 
-        id="mobile-drawer"
-        class="fixed top-0 right-0 h-full w-80 bg-[#1B1E24] border-l border-gray-700 z-50 drawer closed"
-    >
+    <div id="mobile-drawer"
+        class="fixed top-0 right-0 h-full w-80 bg-[#1B1E24] border-l border-gray-700 z-50 drawer closed">
         <div class="flex flex-col h-full">
             <div class="flex items-center justify-between p-6 border-b border-gray-700">
                 <span class="text-xl font-bold text-white">Menu</span>
-                <button 
-                    id="mobile-close-btn"
-                    class="text-gray-400 hover:text-white focus-ring rounded-lg p-2"
-                    aria-label="Close mobile menu"
-                >
+                <button id="mobile-close-btn" class="text-gray-400 hover:text-white focus-ring rounded-lg p-2"
+                    aria-label="Close mobile menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
                     </svg>
                 </button>
             </div>
@@ -591,37 +601,41 @@
             <div class="flex-1 overflow-y-auto p-6">
                 <nav class="space-y-4">
                     <div class="border-b border-gray-700 pb-4">
-                        <button 
-                            id="mobile-product-trigger"
+                        <button id="mobile-product-trigger"
                             class="flex items-center justify-between w-full text-left text-white font-medium focus-ring rounded-lg px-3 py-2"
-                            aria-expanded="false"
-                        >
+                            aria-expanded="false">
                             <span>Hizmetler</span>
                             <svg class="w-4 h-4 caret" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
                         <div id="mobile-product-content" class="hidden mt-3 ml-4 space-y-3">
-                            <a href="#" class="block text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2">Restoran</a>
-                            <a href="#" class="block text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2">Gel Al</a>
-                            <a href="#" class="block text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2">Market</a>
+                            <a href="#"
+                                class="block text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2">Restoran</a>
+                            <a href="#"
+                                class="block text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2">Gel
+                                Al</a>
+                            <a href="#"
+                                class="block text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2">Market</a>
                         </div>
                     </div>
 
                     <div class="border-b border-gray-700 pb-4">
-                        <button 
-                            id="mobile-company-trigger"
+                        <button id="mobile-company-trigger"
                             class="flex items-center justify-between w-full text-left text-white font-medium focus-ring rounded-lg px-3 py-2"
-                            aria-expanded="false"
-                        >
+                            aria-expanded="false">
                             <span>Şirket</span>
                             <svg class="w-4 h-4 caret" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
                             </svg>
                         </button>
                         <div id="mobile-company-content" class="hidden mt-3 ml-4 space-y-3">
-                            <a href="#" class="block text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2">Hakkımızda</a>
-                            <a href="#" class="block text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2">Kariyer</a>
+                            <a href="#"
+                                class="block text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2">Hakkımızda</a>
+                            <a href="#"
+                                class="block text-gray-300 hover:text-white transition-colors focus-ring rounded-lg px-3 py-2">Kariyer</a>
                         </div>
                     </div>
 
@@ -629,34 +643,34 @@
                 </nav>
             </div>
 
-        
+
         </div>
     </div>
 
     <section class="hero-bg min-h-screen relative overflow-hidden">
         <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-        
+
         <div class="absolute inset-0 pointer-events-none">
             <div class="floating-icon absolute top-20 left-16 text-white text-4xl opacity-80">
                 <i class="fas fa-utensils"></i>
             </div>
-            
+
             <div class="floating-icon absolute top-32 right-20 text-white text-3xl opacity-70">
                 <i class="fas fa-pizza-slice"></i>
             </div>
-            
+
             <div class="floating-icon absolute top-1/2 left-8 text-white text-3xl opacity-75">
                 <i class="fas fa-coffee"></i>
             </div>
-            
+
             <div class="floating-icon absolute top-1/2 right-12 text-white text-3xl opacity-80">
                 <i class="fas fa-hamburger"></i>
             </div>
-            
+
             <div class="floating-icon absolute bottom-32 left-24 text-white text-3xl opacity-70">
                 <i class="fas fa-ice-cream"></i>
             </div>
-            
+
             <div class="floating-icon absolute bottom-40 right-16 text-white text-3xl opacity-75">
                 <i class="fas fa-apple-alt"></i>
             </div>
@@ -664,38 +678,37 @@
             <div class="floating-icon absolute top-1/4 left-1/4 text-white text-2xl opacity-60">
                 <i class="fas fa-cookie-bite"></i>
             </div>
-            
+
             <div class="floating-icon absolute top-3/4 right-1/4 text-white text-2xl opacity-65">
                 <i class="fas fa-candy-cane"></i>
             </div>
         </div>
-        
+
         <div class="relative z-10 flex items-center justify-center min-h-screen px-4">
             <div class="text-center max-w-2xl mx-auto">
                 <h1 class="text-5xl md:text-7xl font-black text-white mb-8 leading-tight tracking-tight">
                     İLK SİPARİŞE ÖZEL<br>
                     <span class="text-4xl md:text-6xl">150TL KUPON</span>
                 </h1>
-                
+
                 <div class="bg-white rounded-2xl p-2 input-shadow mb-6 max-w-lg mx-auto">
                     <div class="flex items-center">
                         <div class="flex items-center justify-center w-12 h-12 text-gray-500">
                             <i class="fas fa-map-marker-alt text-xl"></i>
                         </div>
-                        
-                        <input 
-                            type="text" 
-                            placeholder="Yemek, mutfak veya restoran arayın" 
-                            class="flex-1 px-4 py-3 text-gray-900 placeholder-gray-500 bg-transparent border-none outline-none text-lg"
-                        />
-                        
-                        <button class="submit-btn w-12 h-12 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:shadow-lg">
+
+                        <input type="text" placeholder="Yemek, mutfak veya restoran arayın"
+                            class="flex-1 px-4 py-3 text-gray-900 placeholder-gray-500 bg-transparent border-none outline-none text-lg" />
+
+                        <button
+                            class="submit-btn w-12 h-12 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:shadow-lg">
                             <i class="fas fa-arrow-right text-lg"></i>
                         </button>
                     </div>
                 </div>
-                
-                <button class="secondary-btn text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center mx-auto space-x-2">
+
+                <button
+                    class="secondary-btn text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center mx-auto space-x-2">
                     <i class="fas fa-user text-sm"></i>
                     <span>Ücretsiz teslimat için kaydolun </span>
                 </button>
@@ -706,118 +719,123 @@
     <div class="relative overflow-hidden">
         <!-- gradient background -->
         <div class="absolute inset-0 bg-gradient-to-br from-[#1B1E24] via-[#252930] to-[#1B1E24]"></div>
-        
+
         <!-- animated gradient  -->
         <div class="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-3xl"></div>
-        
-        <div class="absolute inset-0 opacity-30" style="background-image: url('image/pattern.svg'); background-repeat: repeat; background-size: 400px 400px;"></div>
 
-        <section class="relative py-20 md:py-32">                                                
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative z-10">
-                
-                <!-- sürücü ol -->
-                <div class="group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-300">
-                    <div class="mb-6 flex justify-center">
-                        <img 
-                            src="image/motor4.png" 
-                            alt="Teslimat sürücüsü motosikletle sipariş teslim ediyor" 
-                            class="w-48 h-48 md:w-56 md:h-56 object-contain"
-                        />
-                    </div>
-                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 text-center">
-                        Sürücü Ol
-                    </h2>
-                    <p class="text-base md:text-lg text-white/70 mb-6 leading-relaxed text-center">
-                        Teslimat sürücüsü olarak para kazanın ve programınızı kendiniz belirleyin. Kayıt olmak birkaç dakika sürer.
-                    </p>
-                    <a 
-                        href="#" 
-                        class="inline-flex items-center justify-center w-full text-[#FF3B30] hover:text-[#E6342A] font-semibold text-lg transition-colors focus-ring rounded-lg px-2 py-1"
-                        aria-label="Sürücü olarak kazanmaya başlayın"
-                    >
-                        Kazanmaya başla
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- işletme ortağı ol -->
-                <div class="group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-300">
-                    <div class="mb-6 flex justify-center">
-                        <img 
-                            src="image/shop.png" 
-                            alt="İşletme sahibi restoranında müşterilere hizmet veriyor" 
-                            class="w-48 h-48 md:w-56 md:h-56 object-contain"
-                        />
-                    </div>
-                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 text-center">
-                        İşletme Ortağı Ol
-                    </h2>
-                    <p class="text-base md:text-lg text-white/70 mb-6 leading-relaxed text-center">
-                        Yeni müşteriler kazanın ve satışlarınızı artırın. İlk 30 gün boyunca %0 komisyon fırsatından yararlanın.
-                    </p>
-                    <a 
-                        href="#" 
-                        class="inline-flex items-center justify-center w-full text-[#FF3B30] hover:text-[#E6342A] font-semibold text-lg transition-colors focus-ring rounded-lg px-2 py-1"
-                        aria-label="İşletme ortağı olarak FoodBazaar'a katılın"
-                    >
-                        FoodBazaar'a katıl
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- en iyi deneyim  -->
-                <div class="group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-300">
-                    <div class="mb-6 flex justify-center">
-                        <img 
-                            src="image/phone.png" 
-                            alt="Mobil uygulama ekranında yemek siparişi veriliyor" 
-                            class="w-48 h-48 md:w-56 md:h-56 object-contain"
-                        />
-                    </div>
-                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 text-center">
-                        En İyi Deneyimi Yaşa
-                    </h2>
-                    <p class="text-base md:text-lg text-white/70 mb-6 leading-relaxed text-center">
-                        Mahallendeki en iyi lezzetleri keşfedin ve hepsine tek bir uygulamadan kolayca ulaşın.
-                    </p>
-                    <a 
-                        href="#" 
-                        class="inline-flex items-center justify-center w-full text-[#FF3B30] hover:text-[#E6342A] font-semibold text-lg transition-colors focus-ring rounded-lg px-2 py-1"
-                        aria-label="FoodBazaar uygulamasını indirin"
-                    >
-                        Uygulamayı indir
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </a>
-                </div>
-
-            </div>
+        <div class="absolute inset-0 opacity-30"
+            style="background-image: url('image/pattern.svg'); background-repeat: repeat; background-size: 400px 400px;">
         </div>
+
+        <section class="relative py-20 md:py-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative z-10">
+
+                    <!-- sürücü ol -->
+                    <div
+                        class="group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-300">
+                        <div class="mb-6 flex justify-center">
+                            <img src="image/motor4.png" alt="Teslimat sürücüsü motosikletle sipariş teslim ediyor"
+                                class="w-48 h-48 md:w-56 md:h-56 object-contain" />
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 text-center">
+                            Sürücü Ol
+                        </h2>
+                        <p class="text-base md:text-lg text-white/70 mb-6 leading-relaxed text-center">
+                            Teslimat sürücüsü olarak para kazanın ve programınızı kendiniz belirleyin. Kayıt olmak
+                            birkaç dakika sürer.
+                        </p>
+                        <a href="#"
+                            class="inline-flex items-center justify-center w-full text-[#FF3B30] hover:text-[#E6342A] font-semibold text-lg transition-colors focus-ring rounded-lg px-2 py-1"
+                            aria-label="Sürücü olarak kazanmaya başlayın">
+                            Kazanmaya başla
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- işletme ortağı ol -->
+                    <div
+                        class="group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-300">
+                        <div class="mb-6 flex justify-center">
+                            <img src="image/shop.png" alt="İşletme sahibi restoranında müşterilere hizmet veriyor"
+                                class="w-48 h-48 md:w-56 md:h-56 object-contain" />
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 text-center">
+                            İşletme Ortağı Ol
+                        </h2>
+                        <p class="text-base md:text-lg text-white/70 mb-6 leading-relaxed text-center">
+                            Yeni müşteriler kazanın ve satışlarınızı artırın. İlk 30 gün boyunca %0 komisyon fırsatından
+                            yararlanın.
+                        </p>
+                        <a href="#"
+                            class="inline-flex items-center justify-center w-full text-[#FF3B30] hover:text-[#E6342A] font-semibold text-lg transition-colors focus-ring rounded-lg px-2 py-1"
+                            aria-label="İşletme ortağı olarak FoodBazaar'a katılın">
+                            FoodBazaar'a katıl
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- en iyi deneyim  -->
+                    <div
+                        class="group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-white/20 transition-all duration-300">
+                        <div class="mb-6 flex justify-center">
+                            <img src="image/phone.png" alt="Mobil uygulama ekranında yemek siparişi veriliyor"
+                                class="w-48 h-48 md:w-56 md:h-56 object-contain" />
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-4 text-center">
+                            En İyi Deneyimi Yaşa
+                        </h2>
+                        <p class="text-base md:text-lg text-white/70 mb-6 leading-relaxed text-center">
+                            Mahallendeki en iyi lezzetleri keşfedin ve hepsine tek bir uygulamadan kolayca ulaşın.
+                        </p>
+                        <a href="#"
+                            class="inline-flex items-center justify-center w-full text-[#FF3B30] hover:text-[#E6342A] font-semibold text-lg transition-colors focus-ring rounded-lg px-2 py-1"
+                            aria-label="FoodBazaar uygulamasını indirin">
+                            Uygulamayı indir
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
         </section>
 
         <footer class="relative w-full px-4 sm:px-6 lg:px-8 pb-8 pt-20">
             <div class="max-w-7xl mx-auto relative z-10">
                 <!-- glass container -->
-                <div class="relative bg-white/10 backdrop-blur-sm border border-white/15 rounded-[24px] md:rounded-[28px] px-8 md:px-12 py-8 md:py-10 overflow-visible" style="box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 40px -10px rgba(0,0,0,.45);">
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-6 md:gap-8 lg:gap-x-10 lg:gap-y-8">
-                        
+                <div class="relative bg-white/10 backdrop-blur-sm border border-white/15 rounded-[24px] md:rounded-[28px] px-8 md:px-12 py-8 md:py-10 overflow-visible"
+                    style="box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 10px 40px -10px rgba(0,0,0,.45);">
+
+                    <div
+                        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-6 md:gap-8 lg:gap-x-10 lg:gap-y-8">
+
                         <!-- Şirket -->
                         <div class="lg:col-span-3">
                             <h4 class="text-sm uppercase font-semibold text-white/80 mb-4 tracking-wider">Şirket</h4>
                             <ul class="space-y-3">
-                                <li><a href="#" class="footer-link text-white/70 hover:text-white text-sm transition-colors">Hakkımızda</a></li>
-                                <li><a href="#" class="footer-link text-white/70 hover:text-white text-sm transition-colors">Kariyer</a></li>
-                                <li><a href="#" class="footer-link text-white/70 hover:text-white text-sm transition-colors">Blog</a></li>
-                                <li><a href="#" class="footer-link text-white/70 hover:text-white text-sm transition-colors">Basın Kiti</a></li>
+                                <li><a href="#"
+                                        class="footer-link text-white/70 hover:text-white text-sm transition-colors">Hakkımızda</a>
+                                </li>
+                                <li><a href="#"
+                                        class="footer-link text-white/70 hover:text-white text-sm transition-colors">Kariyer</a>
+                                </li>
+                                <li><a href="#"
+                                        class="footer-link text-white/70 hover:text-white text-sm transition-colors">Blog</a>
+                                </li>
+                                <li><a href="#"
+                                        class="footer-link text-white/70 hover:text-white text-sm transition-colors">Basın
+                                        Kiti</a></li>
                             </ul>
                         </div>
 
@@ -825,10 +843,18 @@
                         <div class="lg:col-span-3">
                             <h4 class="text-sm uppercase font-semibold text-white/80 mb-4 tracking-wider">Destek</h4>
                             <ul class="space-y-3">
-                                <li><a href="#" class="footer-link text-white/70 hover:text-white text-sm transition-colors">Yardım Merkezi</a></li>
-                                <li><a href="#" class="footer-link text-white/70 hover:text-white text-sm transition-colors">İletişim</a></li>
-                                <li><a href="#" class="footer-link text-white/70 hover:text-white text-sm transition-colors">SSS</a></li>
-                                <li><a href="#" class="footer-link text-white/70 hover:text-white text-sm transition-colors">Canlı Destek</a></li>
+                                <li><a href="#"
+                                        class="footer-link text-white/70 hover:text-white text-sm transition-colors">Yardım
+                                        Merkezi</a></li>
+                                <li><a href="#"
+                                        class="footer-link text-white/70 hover:text-white text-sm transition-colors">İletişim</a>
+                                </li>
+                                <li><a href="#"
+                                        class="footer-link text-white/70 hover:text-white text-sm transition-colors">SSS</a>
+                                </li>
+                                <li><a href="#"
+                                        class="footer-link text-white/70 hover:text-white text-sm transition-colors">Canlı
+                                        Destek</a></li>
                             </ul>
                         </div>
 
@@ -836,23 +862,27 @@
                         <div class="lg:col-span-3">
                             <h4 class="text-sm uppercase font-semibold text-white/80 mb-4 tracking-wider">Yasal</h4>
                             <ul class="space-y-3">
-                                <li><a href="#" class="footer-link text-white/70 hover:text-white text-sm transition-colors">Gizlilik Politikası</a></li>
-                                <li><a href="#" class="footer-link text-white/70 hover:text-white text-sm transition-colors">Kullanım Şartları</a></li>
-                                <li><a href="#" class="footer-link text-white/70 hover:text-white text-sm transition-colors">Çerez Politikası</a></li>
-                                <li><a href="#" class="footer-link text-white/70 hover:text-white text-sm transition-colors">KVKK</a></li>
+                                <li><a href="#"
+                                        class="footer-link text-white/70 hover:text-white text-sm transition-colors">Gizlilik
+                                        Politikası</a></li>
+                                <li><a href="#"
+                                        class="footer-link text-white/70 hover:text-white text-sm transition-colors">Kullanım
+                                        Şartları</a></li>
+                                <li><a href="#"
+                                        class="footer-link text-white/70 hover:text-white text-sm transition-colors">Çerez
+                                        Politikası</a></li>
+                                <li><a href="#"
+                                        class="footer-link text-white/70 hover:text-white text-sm transition-colors">KVKK</a>
+                                </li>
                             </ul>
                         </div>
 
                         <!-- tava - sadece desktop -->
                         <div class="hidden lg:block lg:col-span-3 relative overflow-visible min-h-[200px]">
-                            <img 
-                                src="image/pan1.png" 
-                                alt="Tavası ve malzemeler illüstrasyonu"
+                            <img src="image/pan1.png" alt="Tavası ve malzemeler illüstrasyonu"
                                 class="absolute right-[-30%] bottom-[-20%] object-contain z-10 select-none pointer-events-none"
                                 style="width: 650px !important; max-width: none !important; filter: drop-shadow(0 25px 40px rgba(0,0,0,.45)); transform: rotate(72deg);"
-                                loading="lazy"
-                                decoding="async"
-                            />
+                                loading="lazy" decoding="async" />
                         </div>
                     </div>
 
@@ -865,40 +895,24 @@
 
                         <!-- social icons  -->
                         <div class="flex items-center gap-3">
-                            <a 
-                                href="#" 
+                            <a href="#"
                                 class="social-icon w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/10 border border-white/15 hover:bg-white/15 hover:border-white/25 backdrop-blur-md text-white/80 hover:text-white transition-all"
-                                aria-label="Instagram"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                                aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-instagram text-base"></i>
                             </a>
-                            <a 
-                                href="#" 
+                            <a href="#"
                                 class="social-icon w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/10 border border-white/15 hover:bg-white/15 hover:border-white/25 backdrop-blur-md text-white/80 hover:text-white transition-all"
-                                aria-label="Youtube"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                                aria-label="Youtube" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-youtube text-base"></i>
                             </a>
-                            <a 
-                                href="#" 
+                            <a href="#"
                                 class="social-icon w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/10 border border-white/15 hover:bg-white/15 hover:border-white/25 backdrop-blur-md text-white/80 hover:text-white transition-all"
-                                aria-label="Facebook"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                                aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-facebook-f text-base"></i>
                             </a>
-                            <a 
-                                href="#" 
+                            <a href="#"
                                 class="social-icon w-10 h-10 inline-flex items-center justify-center rounded-full bg-white/10 border border-white/15 hover:bg-white/15 hover:border-white/25 backdrop-blur-md text-white/80 hover:text-white transition-all"
-                                aria-label="LinkedIn"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                                aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
                                 <i class="fab fa-linkedin-in text-base"></i>
                             </a>
                         </div>
@@ -907,24 +921,21 @@
                 </div>
             </div>
         </footer>
-    
+
     </div>
 
     <!-- login modal -->
     <div id="loginModal" class="fixed inset-0 z-50 hidden">
-        <div 
-            class="fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-300" 
-            onclick="closeLoginModal()"
-        ></div>
-        
+        <div class="fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-300" onclick="closeLoginModal()">
+        </div>
+
         <div class="fixed inset-0 flex items-center justify-center p-4">
             <div class="glass-card glass-card--modal modal-enter">
-                <button 
-                    onclick="closeLoginModal()" 
-                    class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-all duration-200"
-                >
+                <button onclick="closeLoginModal()"
+                    class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-all duration-200">
                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
                     </svg>
                 </button>
 
@@ -939,51 +950,35 @@
 
                 <form id="loginForm" action="/Account/Login" method="POST" novalidate>
                     <input type="hidden" name="__RequestVerificationToken" value="" />
-                    
+
                     <div class="space-y-6">
                         <div>
-                            <input 
-                                type="email" 
-                                id="loginEmail"
-                                name="Email"
-                                placeholder="E-posta adresiniz" 
+                            <input type="email" id="loginEmail" name="Email" placeholder="E-posta adresiniz"
                                 class="w-full p-3 rounded-xl bg-white/20 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300"
-                                required
-                                data-val="true"
-                                data-val-required="E-posta adresi gereklidir"
-                                data-val-email="Geçerli bir e-posta adresi giriniz"
-                            >
+                                required data-val="true" data-val-required="E-posta adresi gereklidir"
+                                data-val-email="Geçerli bir e-posta adresi giriniz">
                             <span class="error-message" data-valmsg-for="Email" data-valmsg-replace="true"></span>
                         </div>
-                        
+
                         <div>
-                            <input 
-                                type="password" 
-                                id="loginPassword"
-                                name="Password"
-                                placeholder="Şifreniz" 
+                            <input type="password" id="loginPassword" name="Password" placeholder="Şifreniz"
                                 class="w-full p-3 rounded-xl bg-white/20 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300"
-                                required
-                                data-val="true"
-                                data-val-required="Şifre gereklidir"
-                                minlength="6"
-                                data-val-minlength="Şifre en az 6 karakter olmalıdır"
-                            >
+                                required data-val="true" data-val-required="Şifre gereklidir" minlength="6"
+                                data-val-minlength="Şifre en az 6 karakter olmalıdır">
                             <span class="error-message" data-valmsg-for="Password" data-valmsg-replace="true"></span>
                         </div>
-                        
+
                         <div class="flex items-center justify-between text-sm">
                             <label class="flex items-center text-white/80">
                                 <input type="checkbox" name="RememberMe" class="mr-2 rounded">
                                 Beni hatırla
                             </label>
-                            <a href="#" onclick="openForgotPasswordModal(); return false;" class="text-white/80 hover:text-white transition-colors">Şifremi unuttum?</a>
+                            <a href="#" onclick="openForgotPasswordModal(); return false;"
+                                class="text-white/80 hover:text-white transition-colors">Şifremi unuttum?</a>
                         </div>
-                        
-                        <button 
-                            type="submit"
-                            class="shine-button w-full py-3 rounded-xl bg-[#bde83a] hover:bg-[#bde83a] text-black font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
-                        >
+
+                        <button type="submit"
+                            class="shine-button w-full py-3 rounded-xl bg-[#bde83a] hover:bg-[#bde83a] text-black font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
                             Giriş Yap
                         </button>
                     </div>
@@ -992,27 +987,39 @@
                 <div class="mt-8 pt-6 border-t border-white/20">
                     <p class="text-center text-white/70 text-sm mb-4">veya</p>
                     <div class="space-y-3">
-                        <button onclick="handleGoogleLogin()" class="w-full py-3 px-4 rounded-xl bg-white/20 hover:bg-white/30 text-white font-medium transition-all duration-300 flex items-center justify-center space-x-2">
+                        <button onclick="handleGoogleLogin()"
+                            class="w-full py-3 px-4 rounded-xl bg-white/20 hover:bg-white/30 text-white font-medium transition-all duration-300 flex items-center justify-center space-x-2">
                             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                                <path
+                                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                                    fill="#4285F4" />
+                                <path
+                                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                                    fill="#34A853" />
+                                <path
+                                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                                    fill="#FBBC05" />
+                                <path
+                                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                                    fill="#EA4335" />
                             </svg>
                             <span>Google ile devam et</span>
                         </button>
-                        <button onclick="handleFacebookLogin()" class="w-full py-3 px-4 rounded-xl bg-white/20 hover:bg-white/30 text-white font-medium transition-all duration-300 flex items-center justify-center space-x-2">
+                        <button onclick="handleFacebookLogin()"
+                            class="w-full py-3 px-4 rounded-xl bg-white/20 hover:bg-white/30 text-white font-medium transition-all duration-300 flex items-center justify-center space-x-2">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                             </svg>
                             <span>Facebook ile devam et</span>
                         </button>
                     </div>
-                    
+
                     <div class="mt-6 text-center">
                         <p class="text-white/70 text-sm">
-                            Hesabınız yok mu? 
-                            <button onclick="switchToRegister()" class="text-white font-semibold hover:underline">Kayıt Ol</button>
+                            Hesabınız yok mu?
+                            <button onclick="switchToRegister()" class="text-white font-semibold hover:underline">Kayıt
+                                Ol</button>
                         </p>
                     </div>
                 </div>
@@ -1022,19 +1029,16 @@
 
     <!-- register modal -->
     <div id="registerModal" class="fixed inset-0 z-50 hidden">
-        <div 
-            class="fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-300" 
-            onclick="closeRegisterModal()"
-        ></div>
-        
+        <div class="fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-300"
+            onclick="closeRegisterModal()"></div>
+
         <div class="fixed inset-0 flex items-center justify-center p-4">
             <div class="glass-card glass-card--modal modal-enter">
-                <button 
-                    onclick="closeRegisterModal()" 
-                    class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-all duration-200"
-                >
+                <button onclick="closeRegisterModal()"
+                    class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-all duration-200">
                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
                     </svg>
                 </button>
 
@@ -1049,93 +1053,57 @@
 
                 <form id="registerForm" action="/Account/Register" method="POST" novalidate>
                     <input type="hidden" name="__RequestVerificationToken" value="" />
-                    
+
                     <div class="space-y-6">
                         <div>
-                            <input 
-                                type="text" 
-                                id="registerFullName"
-                                name="FullName"
-                                placeholder="Ad Soyad" 
+                            <input type="text" id="registerFullName" name="FullName" placeholder="Ad Soyad"
                                 class="w-full p-3 rounded-xl bg-white/20 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300"
-                                required
-                                data-val="true"
-                                data-val-required="Ad Soyad gereklidir"
-                                minlength="3"
-                                data-val-minlength="Ad Soyad en az 3 karakter olmalıdır"
-                            >
+                                required data-val="true" data-val-required="Ad Soyad gereklidir" minlength="3"
+                                data-val-minlength="Ad Soyad en az 3 karakter olmalıdır">
                             <span class="error-message" data-valmsg-for="FullName" data-valmsg-replace="true"></span>
                         </div>
-                        
+
                         <div>
-                            <input 
-                                type="email" 
-                                id="registerEmail"
-                                name="Email"
-                                placeholder="E-posta adresiniz" 
+                            <input type="email" id="registerEmail" name="Email" placeholder="E-posta adresiniz"
                                 class="w-full p-3 rounded-xl bg-white/20 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300"
-                                required
-                                data-val="true"
-                                data-val-required="E-posta adresi gereklidir"
-                                data-val-email="Geçerli bir e-posta adresi giriniz"
-                            >
+                                required data-val="true" data-val-required="E-posta adresi gereklidir"
+                                data-val-email="Geçerli bir e-posta adresi giriniz">
                             <span class="error-message" data-valmsg-for="Email" data-valmsg-replace="true"></span>
                         </div>
-                        
+
                         <div>
-                            <input 
-                                type="password" 
-                                id="registerPassword"
-                                name="Password"
-                                placeholder="Şifreniz" 
+                            <input type="password" id="registerPassword" name="Password" placeholder="Şifreniz"
                                 class="w-full p-3 rounded-xl bg-white/20 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300"
-                                required
-                                data-val="true"
-                                data-val-required="Şifre gereklidir"
-                                minlength="6"
+                                required data-val="true" data-val-required="Şifre gereklidir" minlength="6"
                                 data-val-minlength="Şifre en az 6 karakter olmalıdır"
                                 data-val-regex="Şifre en az bir büyük harf, bir küçük harf ve bir rakam içermelidir"
-                                data-val-regex-pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$"
-                            >
+                                data-val-regex-pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$">
                             <span class="error-message" data-valmsg-for="Password" data-valmsg-replace="true"></span>
                         </div>
-                        
+
                         <div>
-                            <input 
-                                type="password" 
-                                id="registerConfirmPassword"
-                                name="ConfirmPassword"
-                                placeholder="Şifrenizi tekrar girin" 
+                            <input type="password" id="registerConfirmPassword" name="ConfirmPassword"
+                                placeholder="Şifrenizi tekrar girin"
                                 class="w-full p-3 rounded-xl bg-white/20 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300"
-                                required
-                                data-val="true"
-                                data-val-required="Şifre tekrarı gereklidir"
-                                data-val-equalto="Şifreler eşleşmiyor"
-                                data-val-equalto-other="Password"
-                            >
-                            <span class="error-message" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
+                                required data-val="true" data-val-required="Şifre tekrarı gereklidir"
+                                data-val-equalto="Şifreler eşleşmiyor" data-val-equalto-other="Password">
+                            <span class="error-message" data-valmsg-for="ConfirmPassword"
+                                data-valmsg-replace="true"></span>
                         </div>
-                        
+
                         <div class="flex items-start text-sm">
                             <label class="flex items-start text-white/80">
-                                <input 
-                                    type="checkbox" 
-                                    name="AcceptTerms"
-                                    id="registerAcceptTerms"
-                                    class="mr-2 rounded mt-1" 
-                                    required
-                                    data-val="true"
-                                    data-val-required="Kullanım koşullarını kabul etmelisiniz"
-                                >
-                                <span class="text-xs">Kullanım koşullarını ve gizlilik politikasını kabul ediyorum</span>
+                                <input type="checkbox" name="AcceptTerms" id="registerAcceptTerms"
+                                    class="mr-2 rounded mt-1" required data-val="true"
+                                    data-val-required="Kullanım koşullarını kabul etmelisiniz">
+                                <span class="text-xs">Kullanım koşullarını ve gizlilik politikasını kabul
+                                    ediyorum</span>
                             </label>
                         </div>
                         <span class="error-message" data-valmsg-for="AcceptTerms" data-valmsg-replace="true"></span>
-                        
-                        <button 
-                            type="submit"
-                            class="shine-button w-full py-3 rounded-xl bg-[#bde83a] hover:bg-[#bde83a] text-black font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
-                        >
+
+                        <button type="submit"
+                            class="shine-button w-full py-3 rounded-xl bg-[#bde83a] hover:bg-[#bde83a] text-black font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
                             Kayıt Ol
                         </button>
                     </div>
@@ -1144,8 +1112,9 @@
                 <div class="mt-8 pt-6 border-t border-white/20">
                     <div class="text-center">
                         <p class="text-white/70 text-sm">
-                            Zaten hesabınız var mı? 
-                            <button onclick="switchToLogin()" class="text-white font-semibold hover:underline">Giriş Yap</button>
+                            Zaten hesabınız var mı?
+                            <button onclick="switchToLogin()" class="text-white font-semibold hover:underline">Giriş
+                                Yap</button>
                         </p>
                     </div>
                 </div>
@@ -1155,56 +1124,47 @@
 
     <!-- forgot -->
     <div id="forgotPasswordModal" class="fixed inset-0 z-50 hidden">
-        <div 
-            class="fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-300" 
-            onclick="closeForgotPasswordModal()"
-        ></div>
-        
+        <div class="fixed inset-0 bg-black/40 backdrop-blur-sm transition-all duration-300"
+            onclick="closeForgotPasswordModal()"></div>
+
         <div class="fixed inset-0 flex items-center justify-center p-4">
             <div class="glass-card glass-card--modal modal-enter">
-                <button 
-                    onclick="closeForgotPasswordModal()" 
-                    class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-all duration-200"
-                >
+                <button onclick="closeForgotPasswordModal()"
+                    class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-all duration-200">
                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
                     </svg>
                 </button>
 
-                <div class="text-center mb-8">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-white/20 flex items-center justify-center">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-2xl font-bold text-white mb-2">Şifremi Unuttum</h2>
-                    <p class="text-white/70 text-sm">E-posta adresinizi girin, size şifre sıfırlama bağlantısı gönderelim.</p>
-                </div>
-
                 <div id="forgotPasswordForm" class="space-y-6">
+                    <div class="text-center mb-8">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-white/20 flex items-center justify-center">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white mb-2">Şifremi Unuttum</h2>
+                        <p class="text-white/70 text-sm">E-posta adresinizi girin, size şifre sıfırlama bağlantısı
+                            gönderelim.</p>
+                    </div>
                     <div>
-                        <input 
-                            type="email" 
-                            id="forgotEmail"
-                            placeholder="E-posta adresiniz" 
+                        <input type="email" id="forgotEmail" placeholder="E-posta adresiniz"
                             class="w-full p-3 rounded-xl bg-white/20 placeholder-white/70 text-white focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-300"
-                            required
-                        >
+                            required>
                         <span class="error-message" id="forgotEmailError"></span>
                     </div>
-                    
-                    <button 
-                        onclick="handleForgotPassword()" 
-                        class="shine-button w-full py-3 rounded-xl bg-[#77ff00] hover:bg-[#66ee00] text-black font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
-                    >
+
+                    <button onclick="handleForgotPassword()"
+                        class="shine-button w-full py-3 rounded-xl bg-[#77ff00] hover:bg-[#66ee00] text-black font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
                         Gönder
                     </button>
-                    
+
                     <div class="text-center">
-                        <button 
-                            onclick="backToLogin()" 
-                            class="text-white/80 hover:text-white transition-colors text-sm font-medium"
-                        >
+                        <button onclick="backToLogin()"
+                            class="text-white/80 hover:text-white transition-colors text-sm font-medium">
                             ← Giriş sayfasına dön
                         </button>
                     </div>
@@ -1213,19 +1173,19 @@
                 <div id="forgotPasswordSuccess" class="text-center space-y-6 hidden">
                     <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/20 flex items-center justify-center">
                         <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
                         </svg>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold text-white mb-2">E-posta Gönderildi!</h3>
-                        <p class="text-white/70 text-sm mb-4">Şifre sıfırlama bağlantısı e-posta adresinize gönderildi. Lütfen e-posta kutunuzu kontrol edin.</p>
+                        <p class="text-white/70 text-sm mb-4">Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.
+                            Lütfen e-posta kutunuzu kontrol edin.</p>
                         <p class="text-white/60 text-xs">E-posta gelmedi mi? Spam klasörünüzü kontrol edin.</p>
                     </div>
-                    
-                    <button 
-                        onclick="backToLogin()" 
-                        class="shine-button w-full py-3 rounded-xl bg-[#77ff00] hover:bg-[#66ee00] text-black font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
-                    >
+
+                    <button onclick="backToLogin()"
+                        class="shine-button w-full py-3 rounded-xl bg-[#77ff00] hover:bg-[#66ee00] text-black font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
                         Giriş Sayfasına Dön
                     </button>
                 </div>
@@ -1236,4 +1196,5 @@
     <script src="app.js"></script>
     <script src="authRegister.js"></script>
 </body>
+
 </html>""
