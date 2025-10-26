@@ -1,0 +1,3445 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="FoodBazaar'da binlerce restoran arasından seçim yapın. Hızlı teslimat, özel kampanyalar ve en sevdiğiniz lezzetler burada!">
+    <title>Restoranlar - FoodBazaar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* CSS Variables for easy theming */
+        :root {
+            --primary-color: #bde83a;
+            --primary-dark: #a5c543;
+            --accent-color: #FF3B30;
+            --accent-hover: #E6342A;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-blur: 12px;
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Glass morphism effects */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 10px 40px -10px rgba(0, 0, 0, 0.45);
+        }
+
+        .glass-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(189, 232, 58, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(189, 232, 58, 0.1);
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #bde83a 0%, #a5c543 50%, #8fb82f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Shine button effect */
+        .shine-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shine-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .shine-button:hover::before {
+            left: 100%;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) skewX(-15deg);
+            }
+
+            100% {
+                transform: translateX(200%) skewX(-15deg);
+            }
+        }
+
+        /* Focus ring */
+        .focus-ring:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Enhanced focus visibility for all interactive elements */
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Campaign card focus state */
+        .campaign-card:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+            border-radius: 1.5rem;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Footer link hover */
+        .footer-link {
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        /* Modal animations */
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-enter {
+            animation: modalFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Validation styles */
+        .error-message {
+            font-size: 0.875rem;
+            color: #fca5a5;
+            margin-top: 0.25rem;
+        }
+
+        .input-error {
+            border: 2px solid #f87171 !important;
+        }
+
+        .validation-summary {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Page Header Styles */
+        .page-header {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1.5rem;
+            padding: 1.5rem 2rem;
+            align-items: center;
+        }
+
+        .glass-card-static {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+        }
+
+        /* Location Indicator */
+        .location-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .location-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .location-edit-btn {
+            padding: 0.25rem;
+            color: rgba(255, 255, 255, 0.6);
+            transition: color 0.2s;
+            border-radius: 0.375rem;
+        }
+
+        .location-edit-btn:hover {
+            color: var(--primary-color);
+        }
+
+        /* Search Container */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.25rem;
+            height: 1.25rem;
+            color: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(165, 197, 67, 0.2);
+            outline: none;
+        }
+
+        /* Breadcrumb Navigation */
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb-item a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: color 0.2s;
+            border-radius: 0.375rem;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .breadcrumb-item a:hover {
+            color: var(--primary-color);
+        }
+
+        .breadcrumb-item-current {
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .breadcrumb-separator {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Responsive Styles for Page Header */
+        @media (max-width: 768px) {
+            .page-header {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .location-indicator {
+                order: 1;
+            }
+
+            .search-container {
+                order: 2;
+                max-width: 100%;
+            }
+
+            .breadcrumb-nav {
+                order: 3;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .location-text {
+                font-size: 0.8125rem;
+            }
+
+            .breadcrumb-item a,
+            .breadcrumb-item-current {
+                font-size: 0.8125rem;
+            }
+        }
+
+
+
+        /* Filter Sidebar Styles */
+        .filter-sidebar {
+            width: 100%;
+            max-width: 320px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 1.5rem;
+            padding-right: 1rem;
+            /* Reduced right padding to accommodate scrollbar */
+            position: sticky;
+            top: 100px;
+            flex-shrink: 0;
+        }
+
+        /* Custom scrollbar for filter sidebar */
+        .filter-sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .filter-sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            margin: 4px;
+        }
+
+        .filter-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(165, 197, 67, 0.5);
+            border-radius: 4px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .filter-sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(165, 197, 67, 0.7);
+            background-clip: padding-box;
+        }
+
+        /* Filter Section Containers */
+        .filter-section {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .filter-section:first-of-type {
+            padding-top: 0;
+        }
+
+        .filter-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        /* Mobile Drawer Styles */
+        @media (max-width: 1024px) {
+            .filter-sidebar {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 85%;
+                max-width: 400px;
+                height: 100vh;
+                max-height: 100vh;
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+                z-index: 1000;
+                background: #1B1E24;
+                border-radius: 0;
+            }
+
+            .filter-sidebar.open {
+                transform: translateX(0);
+            }
+        }
+
+        /* Filter Drawer Overlay */
+        .filter-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .filter-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Mobile Filter Button */
+        .mobile-filter-btn {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-filter-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.875rem 1.5rem;
+                background: rgba(165, 197, 67, 0.15);
+                border: 1px solid rgba(165, 197, 67, 0.3);
+                border-radius: 12px;
+                color: var(--primary-color);
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s;
+                margin-bottom: 1.5rem;
+            }
+
+            .mobile-filter-btn:hover {
+                background: rgba(165, 197, 67, 0.25);
+                border-color: rgba(165, 197, 67, 0.5);
+            }
+        }
+
+        /* Filter Sidebar Close Button */
+        .filter-close-btn {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .filter-close-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 2.5rem;
+                height: 2.5rem;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 0.5rem;
+                color: white;
+                cursor: pointer;
+                transition: all 0.2s;
+                margin-bottom: 1rem;
+            }
+
+            .filter-close-btn:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        /* Filter Options Container */
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        /* Filter Radio Buttons */
+        .filter-radio {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .filter-radio:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .filter-radio input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .filter-radio span {
+            font-size: 0.9375rem;
+            user-select: none;
+        }
+
+        /* Keyboard navigation support for radio groups */
+        .filter-options[role="radiogroup"]:focus-within .filter-radio input[type="radio"]:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+            border-radius: 50%;
+        }
+
+        /* Filter Chips Container */
+        .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* Chip Buttons */
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .chip:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .chip:active {
+            transform: translateY(0);
+        }
+
+        /* Chip Active State (aria-pressed="true") */
+        .chip[aria-pressed="true"] {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #000;
+            font-weight: 600;
+        }
+
+        .chip[aria-pressed="true"]:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .chip svg {
+            flex-shrink: 0;
+        }
+
+        /* Filter Checkbox */
+        .filter-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .filter-checkbox:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .filter-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .filter-checkbox span:first-of-type {
+            font-size: 0.9375rem;
+            user-select: none;
+            flex: 1;
+        }
+
+        .filter-checkbox .count {
+            font-size: 0.8125rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-left: auto;
+        }
+
+        /* Price Range Slider */
+        .price-range {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .price-slider {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        /* Webkit browsers (Chrome, Safari, Edge) */
+        .price-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border: 3px solid #1B1E24;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .price-slider::-webkit-slider-thumb:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        /* Firefox */
+        .price-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border: 3px solid #1B1E24;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .price-slider::-moz-range-thumb:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        /* Track styling for Firefox */
+        .price-slider::-moz-range-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .price-labels {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .price-labels span:last-child {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Clear Filters Button */
+        .clear-filters-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            color: #FCA5A5;
+            font-weight: 500;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .clear-filters-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.5);
+            color: #FEE2E2;
+        }
+
+        .clear-filters-btn:active {
+            transform: scale(0.98);
+        }
+
+
+
+        /* Restaurant Card Styles */
+        .restaurant-card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .restaurant-card:hover,
+        .restaurant-card:focus-visible {
+            transform: translateY(-6px);
+            border-color: var(--primary-color);
+            box-shadow:
+                0 8px 32px 0 rgba(0, 0, 0, 0.4),
+                0 0 0 2px var(--primary-color);
+            outline: none;
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .restaurant-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card-badges {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 1;
+        }
+
+        .badge {
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .badge--fast {
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+        }
+
+        .badge--new {
+            background: rgba(165, 197, 67, 0.9);
+            color: #000;
+        }
+
+        .card-content {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 0.75rem;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: white;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .card-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .rating-count {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            font-weight: 400;
+        }
+
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem;
+        }
+
+        .card-meta>span {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .card-meta svg {
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+
+        .card-cta {
+            width: 100%;
+            padding: 0.875rem;
+            background: rgba(165, 197, 67, 0.15);
+            border: 1px solid rgba(165, 197, 67, 0.3);
+            border-radius: 8px;
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: auto;
+            cursor: pointer;
+        }
+
+        .card-cta:hover {
+            background: var(--primary-color);
+            color: #000;
+            border-color: var(--primary-color);
+        }
+
+        .card-cta:active {
+            transform: scale(0.98);
+        }
+
+        .card-cta:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Skeleton Loading State */
+        .restaurant-card.skeleton .card-image,
+        .restaurant-card.skeleton .card-title,
+        .restaurant-card.skeleton .card-meta>span {
+            background: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0.1) 25%,
+                    rgba(255, 255, 255, 0.2) 50%,
+                    rgba(255, 255, 255, 0.1) 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 8px;
+            color: transparent;
+        }
+
+        .restaurant-card.skeleton .card-image {
+            border-radius: 0;
+        }
+
+        @keyframes skeleton-loading {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Touch target size for mobile */
+        @media (max-width: 768px) {
+            .card-cta {
+                min-height: 44px;
+            }
+        }
+
+        /* Loading Indicator Styles */
+        .loading-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .loading-indicator[hidden] {
+            display: none;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        /* Empty State Styles */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .empty-state[hidden] {
+            display: none;
+        }
+
+        .empty-state-icon {
+            width: 80px;
+            height: 80px;
+            opacity: 0.3;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .empty-state-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+        }
+
+        .empty-state-message {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            max-width: 400px;
+        }
+
+        .empty-state-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            background: rgba(165, 197, 67, 0.15);
+            border: 1px solid rgba(165, 197, 67, 0.3);
+            border-radius: 12px;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .empty-state-btn:hover {
+            background: rgba(165, 197, 67, 0.25);
+            border-color: rgba(165, 197, 67, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .empty-state-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Responsive Empty State */
+        @media (max-width: 768px) {
+            .empty-state {
+                padding: 3rem 1.5rem;
+            }
+
+            .empty-state-icon {
+                width: 64px;
+                height: 64px;
+            }
+
+            .empty-state-title {
+                font-size: 1.25rem;
+            }
+
+            .empty-state-message {
+                font-size: 0.9375rem;
+            }
+        }
+
+        /* Restaurant Grid Styles */
+        .restaurant-grid {
+            flex: 1;
+        }
+
+        .grid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .result-count {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem;
+            font-weight: 400;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Responsive Grid Layout */
+        @media (max-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .grid-header {
+                margin-bottom: 1.5rem;
+            }
+
+            .grid-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .result-count {
+                font-size: 0.8125rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .grid-header h2 {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Error Handling UI Styles */
+        .error-banner {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .error-banner[hidden] {
+            display: none;
+        }
+
+        .error-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            color: #FCA5A5;
+        }
+
+        .error-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .error-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #FEE2E2;
+            margin: 0;
+        }
+
+        .error-message {
+            font-size: 0.9375rem;
+            color: #FCA5A5;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .retry-btn {
+            flex-shrink: 0;
+            padding: 0.75rem 1.5rem;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 8px;
+            color: #FEE2E2;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        .retry-btn:hover {
+            background: rgba(239, 68, 68, 0.3);
+            border-color: rgba(239, 68, 68, 0.6);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+        }
+
+        .retry-btn:active {
+            transform: translateY(0);
+        }
+
+        .retry-btn:focus-visible {
+            outline: 2px solid #FCA5A5;
+            outline-offset: 2px;
+        }
+
+        /* Image Fallback Placeholder */
+        .image-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .image-error-icon {
+            width: 64px;
+            height: 64px;
+            opacity: 0.2;
+        }
+
+        /* Responsive Error Banner */
+        @media (max-width: 768px) {
+            .error-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.25rem;
+            }
+
+            .error-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .error-title {
+                font-size: 1rem;
+            }
+
+            .error-message {
+                font-size: 0.875rem;
+            }
+
+            .retry-btn {
+                width: 100%;
+                padding: 0.875rem 1.25rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .error-banner {
+                padding: 1rem;
+                gap: 0.75rem;
+            }
+
+            .error-icon {
+                width: 36px;
+                height: 36px;
+            }
+        }
+    </style>
+</head>
+
+
+<body class="bg-gradient-to-b from-black via-gray-900 to-[#1B1E24] text-white overflow-x-hidden">
+
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+        <div class="w-full px-4 sm:px-6 lg:px-8 pt-4 pb-4">
+            <div class="relative max-w-7xl mx-auto glass-effect rounded-[28px] overflow-visible">
+                <nav class="relative flex items-center gap-4 px-6 py-3">
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-2 flex-shrink-0">
+                        <div
+                            class="w-10 h-10 bg-gradient-to-br from-[#bde83a] to-[#a5c543] rounded-xl flex items-center justify-center">
+                            <i class="fas fa-utensils text-black text-lg"></i>
+                        </div>
+                        <a href="index-new.html"
+                            class="text-xl font-bold gradient-text whitespace-nowrap">FoodBazaar</a>
+                    </div>
+
+                    <!-- Location (Desktop) -->
+                    <div class="hidden lg:flex items-center gap-2 flex-shrink-0">
+                        <svg class="w-4 h-4 text-[#bde83a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span class="text-white text-sm font-medium whitespace-nowrap">Kadıköy, İstanbul</span>
+                        <button class="text-white/60 hover:text-[#bde83a] focus-ring rounded p-1 transition-colors"
+                            aria-label="Konumu değiştir" type="button">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Search (Desktop) -->
+                    <div class="hidden md:flex relative flex-1 max-w-md">
+                        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <input type="search" id="restaurantSearch"
+                            class="w-full pl-9 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white text-sm placeholder-white/50 focus:outline-none focus:border-[#bde83a] focus:bg-white/15 transition-all"
+                            placeholder="Yemek, mutfak veya restoran arayın" aria-label="Restoran ara"
+                            autocomplete="off" />
+                    </div>
+
+                    <!-- Auth Buttons -->
+                    <div class="flex items-center gap-3 ml-auto flex-shrink-0">
+                        <button onclick="openLoginModal()"
+                            class="hidden sm:block px-5 py-2 rounded-lg bg-white/10 hover:bg-[#bde83a]/20 border border-white/20 hover:border-[#bde83a]/40 text-white text-sm font-medium transition-all focus-ring whitespace-nowrap">
+                            Giriş Yap
+                        </button>
+                        <button onclick="openRegisterModal()"
+                            class="px-5 py-2 rounded-lg bg-[#bde83a] hover:bg-[#a5c543] text-black text-sm font-bold transition-all shine-button focus-ring shadow-lg shadow-[#bde83a]/30 whitespace-nowrap">
+                            Kayıt Ol
+                        </button>
+                    </div>
+                </nav>
+
+                <!-- Mobile Search (Below navbar on mobile) -->
+                <div class="md:hidden px-6 pb-3">
+                    <div class="relative">
+                        <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <input type="search" id="restaurantSearchMobile"
+                            class="w-full pl-9 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white text-sm placeholder-white/50 focus:outline-none focus:border-[#bde83a] focus:bg-white/15 transition-all"
+                            placeholder="Yemek, mutfak veya restoran arayın" aria-label="Restoran ara"
+                            autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="pt-28 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Main Content Layout: Sidebar + Grid -->
+            <div class="flex flex-col lg:flex-row gap-6 mb-12">
+
+                <!-- Mobile Filter Button -->
+                <button class="mobile-filter-btn focus-ring" id="mobileFilterBtn">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z">
+                        </path>
+                    </svg>
+                    Filtreler
+                </button>
+
+                <!-- Filter Overlay (Mobile) -->
+                <div class="filter-overlay" id="filterOverlay"></div>
+
+                <!-- Filter Sidebar -->
+                <aside id="filterSidebar" class="filter-sidebar glass-card glass-card-static"
+                    aria-label="Restaurant filters">
+
+                    <!-- Close Button (Mobile Only) -->
+                    <button class="filter-close-btn focus-ring" aria-label="Filtreleri kapat" id="filterCloseBtn">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Sort Section -->
+                    <div class="filter-section">
+                        <h3 class="filter-title">Sırala</h3>
+                        <div class="filter-options" role="radiogroup" aria-label="Sıralama seçenekleri">
+                            <label class="filter-radio">
+                                <input type="radio" name="sort" value="recommended" checked class="focus-ring" />
+                                <span>Önerilen</span>
+                            </label>
+                            <label class="filter-radio">
+                                <input type="radio" name="sort" value="rating" class="focus-ring" />
+                                <span>En Yüksek Puan</span>
+                            </label>
+                            <label class="filter-radio">
+                                <input type="radio" name="sort" value="delivery-time" class="focus-ring" />
+                                <span>En Hızlı Teslimat</span>
+                            </label>
+                            <label class="filter-radio">
+                                <input type="radio" name="sort" value="min-order" class="focus-ring" />
+                                <span>Min. Sipariş Tutarı</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Quick Filters (Chips) Section -->
+                    <div class="filter-section">
+                        <h3 class="filter-title">Hızlı Filtreler</h3>
+                        <div class="filter-chips">
+                            <button class="chip focus-ring" role="button" aria-pressed="false"
+                                data-filter="fast-delivery">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                                Hızlı Teslimat
+                            </button>
+                            <button class="chip focus-ring" role="button" aria-pressed="false"
+                                data-filter="new-restaurants">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z">
+                                    </path>
+                                </svg>
+                                Yeni Restoranlar
+                            </button>
+                            <button class="chip focus-ring" role="button" aria-pressed="false"
+                                data-filter="free-delivery">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0">
+                                    </path>
+                                </svg>
+                                Ücretsiz Teslimat
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cuisine Categories Section -->
+                    <div class="filter-section">
+                        <h3 class="filter-title">Mutfak</h3>
+                        <div class="filter-options">
+                            <label class="filter-checkbox">
+                                <input type="checkbox" value="turkish" class="focus-ring" />
+                                <span>Türk Mutfağı</span>
+                                <span class="count">(124)</span>
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" value="italian" class="focus-ring" />
+                                <span>İtalyan</span>
+                                <span class="count">(89)</span>
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" value="chinese" class="focus-ring" />
+                                <span>Çin</span>
+                                <span class="count">(67)</span>
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" value="japanese" class="focus-ring" />
+                                <span>Japon</span>
+                                <span class="count">(54)</span>
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" value="american" class="focus-ring" />
+                                <span>Amerikan</span>
+                                <span class="count">(78)</span>
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" value="mexican" class="focus-ring" />
+                                <span>Meksika</span>
+                                <span class="count">(42)</span>
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" value="indian" class="focus-ring" />
+                                <span>Hint</span>
+                                <span class="count">(36)</span>
+                            </label>
+                            <label class="filter-checkbox">
+                                <input type="checkbox" value="mediterranean" class="focus-ring" />
+                                <span>Akdeniz</span>
+                                <span class="count">(51)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Price Range Section -->
+                    <div class="filter-section">
+                        <h3 class="filter-title">Fiyat Aralığı</h3>
+                        <div class="price-range">
+                            <input type="range" id="priceRangeSlider" min="0" max="500" step="10" value="500"
+                                aria-label="Minimum fiyat aralığı" class="price-slider focus-ring" />
+                            <div class="price-labels">
+                                <span>₺0</span>
+                                <span id="priceValue">₺500+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status Filters Section -->
+                    <div class="filter-section">
+                        <h3 class="filter-title">Durum</h3>
+                        <div class="filter-options">
+                            <label class="filter-checkbox">
+                                <input type="checkbox" value="open-now" id="openNowFilter" class="focus-ring" />
+                                <span>Şu Anda Açık</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Clear Filters Button -->
+                    <div class="filter-section">
+                        <button class="clear-filters-btn focus-ring" id="clearFiltersBtn">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            Filtreleri Temizle
+                        </button>
+                    </div>
+
+                </aside>
+
+                <!-- Main Content Area -->
+                <div class="flex-1">
+                    <!-- Network Error Banner -->
+                    <div class="error-banner" role="alert" id="networkErrorBanner" hidden>
+                        <svg class="error-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div class="error-content">
+                            <h4 class="error-title">Bağlantı Hatası</h4>
+                            <p class="error-message">Restoranlar yüklenirken bir sorun oluştu. Lütfen internet
+                                bağlantınızı kontrol edin ve tekrar deneyin.</p>
+                        </div>
+                        <button class="retry-btn focus-ring" id="retryBtn" onclick="retryLoadRestaurants()">
+                            <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                                </path>
+                            </svg>
+                            Tekrar Dene
+                        </button>
+                    </div>
+
+                    <!-- Restaurant Grid Section -->
+                    <section class="restaurant-grid" aria-label="Restaurant listings">
+                        <!-- Grid Header -->
+                        <div class="grid-header">
+                            <h2 class="text-2xl font-bold text-white">Restoranlar</h2>
+                            <span class="result-count">248 restoran bulundu</span>
+                        </div>
+
+                        <!-- Grid Container -->
+                        <div class="grid-container">
+                            <!-- Restaurant Card 1 -->
+                            <article class="restaurant-card glass-card" tabindex="0" role="button"
+                                aria-label="Lezzet Durağı restoran detayları">
+                                <div class="card-image-wrapper">
+                                    <img src="image/hero.jpg" alt="Lezzet Durağı restoran görseli" loading="lazy"
+                                        class="card-image" />
+                                    <div class="card-badges">
+                                        <span class="badge badge--fast">Hızlı</span>
+                                        <span class="badge badge--new">Yeni</span>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Lezzet Durağı</h3>
+                                        <div class="card-rating">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.8</span>
+                                            <span class="rating-count">(250+)</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            20-30 dk
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
+                                            </svg>
+                                            Min. ₺80
+                                        </span>
+                                        <span>Türk Mutfağı</span>
+                                    </div>
+                                    <button class="card-cta">
+                                        Menüyü Gör
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </article>
+
+                            <!-- Restaurant Card 2 -->
+                            <article class="restaurant-card glass-card" tabindex="0" role="button"
+                                aria-label="Pizza Palace restoran detayları">
+                                <div class="card-image-wrapper">
+                                    <img src="image/hero.jpg" alt="Pizza Palace restoran görseli" loading="lazy"
+                                        class="card-image" />
+                                    <div class="card-badges">
+                                        <span class="badge badge--fast">Hızlı</span>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Pizza Palace</h3>
+                                        <div class="card-rating">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.6</span>
+                                            <span class="rating-count">(180+)</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            25-35 dk
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
+                                            </svg>
+                                            Min. ₺100
+                                        </span>
+                                        <span>İtalyan</span>
+                                    </div>
+                                    <button class="card-cta">
+                                        Menüyü Gör
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </article>
+
+                            <!-- Restaurant Card 3 -->
+                            <article class="restaurant-card glass-card" tabindex="0" role="button"
+                                aria-label="Sushi Master restoran detayları">
+                                <div class="card-image-wrapper">
+                                    <img src="image/hero.jpg" alt="Sushi Master restoran görseli" loading="lazy"
+                                        class="card-image" />
+                                    <div class="card-badges">
+                                        <span class="badge badge--new">Yeni</span>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Sushi Master</h3>
+                                        <div class="card-rating">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.9</span>
+                                            <span class="rating-count">(320+)</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            30-40 dk
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
+                                            </svg>
+                                            Min. ₺150
+                                        </span>
+                                        <span>Japon</span>
+                                    </div>
+                                    <button class="card-cta">
+                                        Menüyü Gör
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </article>
+
+                            <!-- Restaurant Card 4 -->
+                            <article class="restaurant-card glass-card" tabindex="0" role="button"
+                                aria-label="Burger House restoran detayları">
+                                <div class="card-image-wrapper">
+                                    <img src="image/hero.jpg" alt="Burger House restoran görseli" loading="lazy"
+                                        class="card-image" />
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Burger House</h3>
+                                        <div class="card-rating">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.5</span>
+                                            <span class="rating-count">(145+)</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            15-25 dk
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
+                                            </svg>
+                                            Min. ₺70
+                                        </span>
+                                        <span>Amerikan</span>
+                                    </div>
+                                    <button class="card-cta">
+                                        Menüyü Gör
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </article>
+
+                            <!-- Restaurant Card 5 -->
+                            <article class="restaurant-card glass-card" tabindex="0" role="button"
+                                aria-label="Çin Sarayı restoran detayları">
+                                <div class="card-image-wrapper">
+                                    <img src="image/hero.jpg" alt="Çin Sarayı restoran görseli" loading="lazy"
+                                        class="card-image" />
+                                    <div class="card-badges">
+                                        <span class="badge badge--fast">Hızlı</span>
+                                        <span class="badge badge--new">Yeni</span>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Çin Sarayı</h3>
+                                        <div class="card-rating">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.7</span>
+                                            <span class="rating-count">(210+)</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            20-30 dk
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
+                                            </svg>
+                                            Min. ₺90
+                                        </span>
+                                        <span>Çin</span>
+                                    </div>
+                                    <button class="card-cta">
+                                        Menüyü Gör
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </article>
+
+                            <!-- Restaurant Card 6 -->
+                            <article class="restaurant-card glass-card" tabindex="0" role="button"
+                                aria-label="Taco Fiesta restoran detayları">
+                                <div class="card-image-wrapper">
+                                    <img src="image/hero.jpg" alt="Taco Fiesta restoran görseli" loading="lazy"
+                                        class="card-image" />
+                                    <div class="card-badges">
+                                        <span class="badge badge--new">Yeni</span>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Taco Fiesta</h3>
+                                        <div class="card-rating">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.4</span>
+                                            <span class="rating-count">(95+)</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            25-35 dk
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
+                                            </svg>
+                                            Min. ₺85
+                                        </span>
+                                        <span>Meksika</span>
+                                    </div>
+                                    <button class="card-cta">
+                                        Menüyü Gör
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </article>
+
+                            <!-- Restaurant Card 7 -->
+                            <article class="restaurant-card glass-card" tabindex="0" role="button"
+                                aria-label="Akdeniz Lezzetleri restoran detayları">
+                                <div class="card-image-wrapper">
+                                    <img src="image/hero.jpg" alt="Akdeniz Lezzetleri restoran görseli" loading="lazy"
+                                        class="card-image" />
+                                    <div class="card-badges">
+                                        <span class="badge badge--fast">Hızlı</span>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Akdeniz Lezzetleri</h3>
+                                        <div class="card-rating">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.8</span>
+                                            <span class="rating-count">(275+)</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            20-30 dk
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
+                                            </svg>
+                                            Min. ₺95
+                                        </span>
+                                        <span>Akdeniz</span>
+                                    </div>
+                                    <button class="card-cta">
+                                        Menüyü Gör
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </article>
+
+                            <!-- Restaurant Card 8 -->
+                            <article class="restaurant-card glass-card" tabindex="0" role="button"
+                                aria-label="Hint Baharat restoran detayları">
+                                <div class="card-image-wrapper">
+                                    <img src="image/hero.jpg" alt="Hint Baharat restoran görseli" loading="lazy"
+                                        class="card-image" />
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Hint Baharat</h3>
+                                        <div class="card-rating">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.6</span>
+                                            <span class="rating-count">(165+)</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            30-40 dk
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
+                                            </svg>
+                                            Min. ₺110
+                                        </span>
+                                        <span>Hint</span>
+                                    </div>
+                                    <button class="card-cta">
+                                        Menüyü Gör
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </article>
+
+                            <!-- Restaurant Card 9 -->
+                            <article class="restaurant-card glass-card" tabindex="0" role="button"
+                                aria-label="Kebap Evi restoran detayları">
+                                <div class="card-image-wrapper">
+                                    <img src="image/hero.jpg" alt="Kebap Evi restoran görseli" loading="lazy"
+                                        class="card-image" />
+                                    <div class="card-badges">
+                                        <span class="badge badge--fast">Hızlı</span>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Kebap Evi</h3>
+                                        <div class="card-rating">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.9</span>
+                                            <span class="rating-count">(380+)</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            15-25 dk
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
+                                            </svg>
+                                            Min. ₺75
+                                        </span>
+                                        <span>Türk Mutfağı</span>
+                                    </div>
+                                    <button class="card-cta">
+                                        Menüyü Gör
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </article>
+
+                            <!-- Restaurant Card 10 -->
+                            <article class="restaurant-card glass-card" tabindex="0" role="button"
+                                aria-label="Pasta Amore restoran detayları">
+                                <div class="card-image-wrapper">
+                                    <img src="image/hero.jpg" alt="Pasta Amore restoran görseli" loading="lazy"
+                                        class="card-image" />
+                                    <div class="card-badges">
+                                        <span class="badge badge--new">Yeni</span>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Pasta Amore</h3>
+                                        <div class="card-rating">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.7</span>
+                                            <span class="rating-count">(195+)</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            25-35 dk
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
+                                            </svg>
+                                            Min. ₺105
+                                        </span>
+                                        <span>İtalyan</span>
+                                    </div>
+                                    <button class="card-cta">
+                                        Menüyü Gör
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </article>
+
+                            <!-- Restaurant Card 11 -->
+                            <article class="restaurant-card glass-card" tabindex="0" role="button"
+                                aria-label="Wok Express restoran detayları">
+                                <div class="card-image-wrapper">
+                                    <img src="image/hero.jpg" alt="Wok Express restoran görseli" loading="lazy"
+                                        class="card-image" />
+                                    <div class="card-badges">
+                                        <span class="badge badge--fast">Hızlı</span>
+                                        <span class="badge badge--new">Yeni</span>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Wok Express</h3>
+                                        <div class="card-rating">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.5</span>
+                                            <span class="rating-count">(125+)</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            20-30 dk
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
+                                            </svg>
+                                            Min. ₺85
+                                        </span>
+                                        <span>Çin</span>
+                                    </div>
+                                    <button class="card-cta">
+                                        Menüyü Gör
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </article>
+
+                            <!-- Restaurant Card 12 -->
+                            <article class="restaurant-card glass-card" tabindex="0" role="button"
+                                aria-label="Balık Evi restoran detayları">
+                                <div class="card-image-wrapper">
+                                    <img src="image/hero.jpg" alt="Balık Evi restoran görseli" loading="lazy"
+                                        class="card-image" />
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Balık Evi</h3>
+                                        <div class="card-rating">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                </path>
+                                            </svg>
+                                            <span>4.8</span>
+                                            <span class="rating-count">(290+)</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-meta">
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            35-45 dk
+                                        </span>
+                                        <span>
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
+                                            </svg>
+                                            Min. ₺120
+                                        </span>
+                                        <span>Akdeniz</span>
+                                    </div>
+                                    <button class="card-cta">
+                                        Menüyü Gör
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </article>
+
+                        </div>
+
+                        <!-- Infinite Scroll Trigger -->
+                        <div class="scroll-trigger" aria-hidden="true"></div>
+
+                        <!-- Loading Indicator -->
+                        <div class="loading-indicator" role="status" aria-live="polite" id="loadingIndicator" hidden>
+                            <div class="spinner" aria-hidden="true"></div>
+                            <span class="loading-text">Daha fazla restoran yükleniyor...</span>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div class="empty-state" id="emptyState" hidden>
+                            <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg>
+                            <h3 class="empty-state-title">Sonuç bulunamadı</h3>
+                            <p class="empty-state-message">
+                                Aradığınız kriterlere uygun restoran bulunamadı. Filtrelerinizi değiştirmeyi deneyin.
+                            </p>
+                            <button class="empty-state-btn focus-ring" id="emptyStateClearBtn">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                Filtreleri Temizle
+                            </button>
+                        </div>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="relative py-40 overflow-hidden">
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-effect rounded-3xl p-8 md:p-12">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                    <!-- Company -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Şirket</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#"
+                                    class="footer-link text-white/70 hover:text-white transition-colors">Hakkımızda</a>
+                            </li>
+                            <li><a href="#"
+                                    class="footer-link text-white/70 hover:text-white transition-colors">Kariyer</a>
+                            </li>
+                            <li><a href="#"
+                                    class="footer-link text-white/70 hover:text-white transition-colors">Blog</a></li>
+                            <li><a href="#"
+                                    class="footer-link text-white/70 hover:text-white transition-colors">Basın</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Support -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Destek</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="footer-link text-white/70 hover:text-white transition-colors">Yardım
+                                    Merkezi</a></li>
+                            <li><a href="#"
+                                    class="footer-link text-white/70 hover:text-white transition-colors">İletişim</a>
+                            </li>
+                            <li><a href="#" class="footer-link text-white/70 hover:text-white transition-colors">SSS</a>
+                            </li>
+                            <li><a href="#" class="footer-link text-white/70 hover:text-white transition-colors">Canlı
+                                    Destek</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Legal -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Yasal</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#"
+                                    class="footer-link text-white/70 hover:text-white transition-colors">Gizlilik</a>
+                            </li>
+                            <li><a href="#"
+                                    class="footer-link text-white/70 hover:text-white transition-colors">Kullanım
+                                    Şartları</a></li>
+                            <li><a href="#"
+                                    class="footer-link text-white/70 hover:text-white transition-colors">Çerezler</a>
+                            </li>
+                            <li><a href="#"
+                                    class="footer-link text-white/70 hover:text-white transition-colors">KVKK</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="hidden lg:block lg:col-span-1 relative overflow-visible min-h-[200px]">
+                        <img src="image/pan1.png" alt="Tavası ve malzemeler illüstrasyonu"
+                            class="absolute right-[-30%] bottom-[-20%] object-contain z-10 select-none pointer-events-none"
+                            style="width: 650px !important; max-width: none !important; filter: drop-shadow(0 25px 40px rgba(0,0,0,.45)); transform: rotate(72deg);"
+                            loading="lazy" decoding="async" />
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent my-8"></div>
+
+                <!-- Bottom -->
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center space-x-2">
+                        <div
+                            class="w-8 h-8 bg-gradient-to-br from-[#bde83a] to-[#a5c543] rounded-lg flex items-center justify-center">
+                            <i class="fas fa-utensils text-black text-sm"></i>
+                        </div>
+                        <span class="text-lg font-bold gradient-text">FoodBazaar</span>
+                    </div>
+                    <p class="text-white/60 text-sm">© 2025 FoodBazaar. Tüm hakları saklıdır.</p>
+
+                    <!-- Sosyal Medya -->
+                    <div class="flex space-x-3">
+                        <a href="#" aria-label="Instagram'da bizi takip edin"
+                            class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-all focus-ring">
+                            <i class="fab fa-instagram text-white" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" aria-label="Facebook'ta bizi takip edin"
+                            class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-all focus-ring">
+                            <i class="fab fa-facebook text-white" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" aria-label="Twitter'da bizi takip edin"
+                            class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-all focus-ring">
+                            <i class="fab fa-twitter text-white" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" aria-label="LinkedIn'de bizi takip edin"
+                            class="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-all focus-ring">
+                            <i class="fab fa-linkedin text-white" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 z-50 hidden">
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="closeLoginModal()"></div>
+        <div class="fixed inset-0 flex items-center justify-center p-4">
+            <div class="glass-card max-w-md w-full p-8 modal-enter">
+                <button onclick="closeLoginModal()"
+                    class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-all focus-ring"
+                    aria-label="Giriş modalını kapat">
+                    <i class="fas fa-times text-white" aria-hidden="true"></i>
+                </button>
+
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-white mb-2">Giriş Yap</h2>
+                    <p class="text-white/70">Hesabınıza giriş yapın</p>
+                </div>
+
+                <div id="loginValidationSummary" class="validation-summary hidden">
+                    <ul id="loginValidationList" class="list-disc list-inside text-red-200 text-sm space-y-1"></ul>
+                </div>
+
+                <form id="loginForm" action="/Account/Login" method="POST" novalidate class="space-y-6">
+                    <div>
+                        <input type="email" id="loginEmail" name="Email" placeholder="E-posta adresiniz"
+                            class="w-full p-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#bde83a] transition-all"
+                            required />
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div>
+                        <input type="password" id="loginPassword" name="Password" placeholder="Şifreniz"
+                            class="w-full p-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#bde83a] transition-all"
+                            required />
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="flex items-center justify-between text-sm">
+                        <label class="flex items-center text-white/70">
+                            <input type="checkbox" name="RememberMe" class="mr-2 rounded">
+                            Beni hatırla
+                        </label>
+                        <a href="#" onclick="openForgotPasswordModal(); return false;"
+                            class="text-[#bde83a] hover:text-[#a5c543] transition-colors">Şifremi unuttum?</a>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full py-3 rounded-xl bg-gradient-to-r from-[#bde83a] to-[#a5c543] text-black font-bold hover:shadow-lg hover:shadow-[#bde83a]/50 transition-all shine-button">
+                        Giriş Yap
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center">
+                    <p class="text-white/70 text-sm">
+                        Hesabınız yok mu?
+                        <button onclick="switchToRegister()"
+                            class="text-[#bde83a] hover:text-[#a5c543] font-semibold">Kayıt Ol</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="fixed inset-0 z-50 hidden">
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="closeRegisterModal()"></div>
+        <div class="fixed inset-0 flex items-center justify-center p-4">
+            <div class="glass-card max-w-md w-full p-8 modal-enter">
+                <button onclick="closeRegisterModal()"
+                    class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-all focus-ring"
+                    aria-label="Kayıt modalını kapat">
+                    <i class="fas fa-times text-white" aria-hidden="true"></i>
+                </button>
+
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-white mb-2">Kayıt Ol</h2>
+                    <p class="text-white/70">Yeni hesap oluşturun</p>
+                </div>
+
+                <div id="registerValidationSummary" class="validation-summary hidden">
+                    <ul id="registerValidationList" class="list-disc list-inside text-red-200 text-sm space-y-1"></ul>
+                </div>
+
+                <form id="registerForm" action="/Account/Register" method="POST" novalidate class="space-y-6">
+                    <div>
+                        <input type="text" id="registerFullName" name="FullName" placeholder="Ad Soyad"
+                            class="w-full p-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#bde83a] transition-all"
+                            required />
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div>
+                        <input type="email" id="registerEmail" name="Email" placeholder="E-posta adresiniz"
+                            class="w-full p-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#bde83a] transition-all"
+                            required />
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div>
+                        <input type="password" id="registerPassword" name="Password" placeholder="Şifreniz"
+                            class="w-full p-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#bde83a] transition-all"
+                            required />
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div>
+                        <input type="password" id="registerConfirmPassword" name="ConfirmPassword"
+                            placeholder="Şifrenizi tekrar girin"
+                            class="w-full p-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#bde83a] transition-all"
+                            required />
+                        <span class="error-message"></span>
+                    </div>
+
+                    <div class="flex items-start text-sm">
+                        <label class="flex items-start text-white/70">
+                            <input type="checkbox" name="AcceptTerms" id="registerAcceptTerms" class="mr-2 rounded mt-1"
+                                required />
+                            <span class="text-xs">Kullanım koşullarını ve gizlilik politikasını kabul ediyorum</span>
+                        </label>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full py-3 rounded-xl bg-gradient-to-r from-[#bde83a] to-[#a5c543] text-black font-bold hover:shadow-lg hover:shadow-[#bde83a]/50 transition-all shine-button">
+                        Kayıt Ol
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center">
+                    <p class="text-white/70 text-sm">
+                        Zaten hesabınız var mı?
+                        <button onclick="switchToLogin()"
+                            class="text-[#bde83a] hover:text-[#a5c543] font-semibold">Giriş Yap</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="fixed inset-0 z-50 hidden">
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="closeForgotPasswordModal()"></div>
+        <div class="fixed inset-0 flex items-center justify-center p-4">
+            <div class="glass-card max-w-md w-full p-8 modal-enter">
+                <button onclick="closeForgotPasswordModal()"
+                    class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-all focus-ring"
+                    aria-label="Şifremi unuttum modalını kapat">
+                    <i class="fas fa-times text-white" aria-hidden="true"></i>
+                </button>
+
+                <div id="forgotPasswordForm" class="space-y-6">
+                    <div class="text-center mb-8">
+                        <div
+                            class="w-16 h-16 mx-auto mb-4 bg-[#bde83a]/20 rounded-full flex items-center justify-center">
+                            <i class="fas fa-key text-[#bde83a] text-2xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white mb-2">Şifremi Unuttum</h2>
+                        <p class="text-white/70 text-sm">E-posta adresinizi girin, size şifre sıfırlama bağlantısı
+                            gönderelim</p>
+                    </div>
+                    <div>
+                        <input type="email" id="forgotEmail" placeholder="E-posta adresiniz"
+                            class="w-full p-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-[#bde83a] transition-all"
+                            required />
+                        <span class="error-message" id="forgotEmailError"></span>
+                    </div>
+
+                    <button onclick="handleForgotPassword()"
+                        class="w-full py-3 rounded-xl bg-gradient-to-r from-[#bde83a] to-[#a5c543] text-black font-bold hover:shadow-lg hover:shadow-[#bde83a]/50 transition-all shine-button focus-ring">
+                        Gönder
+                    </button>
+
+                    <div class="text-center">
+                        <button onclick="backToLogin()"
+                            class="text-white/70 hover:text-white transition-colors text-sm">
+                            ← Giriş sayfasına dön
+                        </button>
+                    </div>
+                </div>
+
+                <div id="forgotPasswordSuccess" class="text-center space-y-6 hidden">
+                    <div class="w-16 h-16 mx-auto bg-[#bde83a]/20 rounded-full flex items-center justify-center">
+                        <i class="fas fa-check text-[#bde83a] text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-white mb-2">E-posta Gönderildi!</h3>
+                        <p class="text-white/70 text-sm">Şifre sıfırlama bağlantısı e-posta adresinize gönderildi.</p>
+                    </div>
+                    <button onclick="backToLogin()"
+                        class="w-full py-3 rounded-xl bg-gradient-to-r from-[#bde83a] to-[#a5c543] text-black font-bold hover:shadow-lg hover:shadow-[#bde83a]/50 transition-all shine-button focus-ring">
+                        Giriş Sayfasına Dön
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="authRegister.js"></script>
+    <script>
+        // Sync Mobile and Desktop Search
+        const restaurantSearch = document.getElementById('restaurantSearch');
+        const restaurantSearchMobile = document.getElementById('restaurantSearchMobile');
+
+        if (restaurantSearch && restaurantSearchMobile) {
+            // Sync desktop to mobile
+            restaurantSearch.addEventListener('input', (e) => {
+                restaurantSearchMobile.value = e.target.value;
+            });
+
+            // Sync mobile to desktop
+            restaurantSearchMobile.addEventListener('input', (e) => {
+                restaurantSearch.value = e.target.value;
+                // Trigger the debounced search
+                const event = new Event('input', { bubbles: true });
+                restaurantSearch.dispatchEvent(event);
+            });
+        }
+
+        // Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Radio Group Keyboard Navigation (Arrow Keys)
+        document.querySelectorAll('[role="radiogroup"]').forEach(radioGroup => {
+            const radios = Array.from(radioGroup.querySelectorAll('input[type="radio"]'));
+
+            radios.forEach((radio, index) => {
+                radio.addEventListener('keydown', (e) => {
+                    let nextIndex;
+
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        nextIndex = (index + 1) % radios.length;
+                        radios[nextIndex].checked = true;
+                        radios[nextIndex].focus();
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        nextIndex = (index - 1 + radios.length) % radios.length;
+                        radios[nextIndex].checked = true;
+                        radios[nextIndex].focus();
+                    }
+                });
+            });
+        });
+
+        // Price Range Slider Update
+        const priceSlider = document.getElementById('priceRangeSlider');
+        const priceValue = document.getElementById('priceValue');
+
+        if (priceSlider && priceValue) {
+            priceSlider.addEventListener('input', (e) => {
+                const value = parseInt(e.target.value);
+                priceValue.textContent = value >= 500 ? '₺500+' : `₺${value}`;
+            });
+        }
+
+        // Clear Filters Button
+        const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+
+        if (clearFiltersBtn) {
+            clearFiltersBtn.addEventListener('click', () => {
+                // Reset sort to recommended
+                const sortRadios = document.querySelectorAll('input[name="sort"]');
+                sortRadios.forEach(radio => {
+                    radio.checked = radio.value === 'recommended';
+                });
+
+                // Uncheck all chips
+                const chips = document.querySelectorAll('.chip');
+                chips.forEach(chip => {
+                    chip.setAttribute('aria-pressed', 'false');
+                });
+
+                // Uncheck all cuisine checkboxes
+                const cuisineCheckboxes = document.querySelectorAll('.filter-checkbox input[type="checkbox"]');
+                cuisineCheckboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+
+                // Reset price slider
+                if (priceSlider && priceValue) {
+                    priceSlider.value = 500;
+                    priceValue.textContent = '₺500+';
+                }
+
+                console.log('Filters cleared');
+            });
+        }
+
+        // Empty State Clear Filters Button
+        const emptyStateClearBtn = document.getElementById('emptyStateClearBtn');
+
+        if (emptyStateClearBtn) {
+            emptyStateClearBtn.addEventListener('click', () => {
+                // Trigger the same clear filters logic
+                if (clearFiltersBtn) {
+                    clearFiltersBtn.click();
+                }
+
+                // Hide empty state
+                const emptyState = document.getElementById('emptyState');
+                if (emptyState) {
+                    emptyState.hidden = true;
+                }
+
+                console.log('Filters cleared from empty state');
+            });
+        }
+
+        // Mobile Filter Drawer
+        const mobileFilterBtn = document.getElementById('mobileFilterBtn');
+        const filterSidebar = document.getElementById('filterSidebar');
+        const filterCloseBtn = document.getElementById('filterCloseBtn');
+        const filterOverlay = document.getElementById('filterOverlay');
+
+        function openFilterDrawer() {
+            if (filterSidebar && filterOverlay) {
+                filterSidebar.classList.add('open');
+                filterOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeFilterDrawer() {
+            if (filterSidebar && filterOverlay) {
+                filterSidebar.classList.remove('open');
+                filterOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Open drawer on mobile filter button click
+        if (mobileFilterBtn) {
+            mobileFilterBtn.addEventListener('click', openFilterDrawer);
+        }
+
+        // Close drawer on close button click
+        if (filterCloseBtn) {
+            filterCloseBtn.addEventListener('click', closeFilterDrawer);
+        }
+
+        // Close drawer on overlay click
+        if (filterOverlay) {
+            filterOverlay.addEventListener('click', closeFilterDrawer);
+        }
+
+        // Close drawer on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && filterSidebar?.classList.contains('open')) {
+                closeFilterDrawer();
+            }
+        });
+
+        // ============================================
+        // Filter State Management
+        // ============================================
+
+        /**
+         * Global filter state object
+         * Tracks all active filters for restaurant filtering
+         */
+        const filterState = {
+            sort: 'recommended',
+            quickFilters: {
+                fastDelivery: false,
+                newRestaurants: false,
+                freeDelivery: false
+            },
+            cuisineTypes: [],
+            priceRange: 500,
+            openNow: false,
+            searchQuery: ''
+        };
+
+        /**
+         * Log the current filter state to console
+         * Used for testing and debugging filter changes
+         */
+        function logFilterState() {
+            console.log('=== Filter State Updated ===');
+            console.log('Sort:', filterState.sort);
+            console.log('Quick Filters:', filterState.quickFilters);
+            console.log('Cuisine Types:', filterState.cuisineTypes);
+            console.log('Price Range:', filterState.priceRange);
+            console.log('Open Now:', filterState.openNow);
+            console.log('Search Query:', filterState.searchQuery);
+            console.log('===========================');
+        }
+
+        // ============================================
+        // URL Sync and State Management
+        // ============================================
+
+        /**
+         * Sync filter state to URL query parameters
+         * Updates the browser URL without reloading the page
+         * Enables shareable filter links and browser history support
+         */
+        function syncFiltersToURL() {
+            const params = new URLSearchParams();
+
+            // Add sort parameter if not default
+            if (filterState.sort !== 'recommended') {
+                params.set('sort', filterState.sort);
+            }
+
+            // Add quick filters if enabled
+            if (filterState.quickFilters.fastDelivery) {
+                params.set('fastDelivery', 'true');
+            }
+            if (filterState.quickFilters.newRestaurants) {
+                params.set('newRestaurants', 'true');
+            }
+            if (filterState.quickFilters.freeDelivery) {
+                params.set('freeDelivery', 'true');
+            }
+
+            // Add cuisine types if any selected
+            if (filterState.cuisineTypes.length > 0) {
+                params.set('cuisine', filterState.cuisineTypes.join(','));
+            }
+
+            // Add price range if not default (500)
+            if (filterState.priceRange !== 500) {
+                params.set('price', filterState.priceRange.toString());
+            }
+
+            // Add open now filter if enabled
+            if (filterState.openNow) {
+                params.set('openNow', 'true');
+            }
+
+            // Add search query if present
+            if (filterState.searchQuery) {
+                params.set('q', filterState.searchQuery);
+            }
+
+            // Build the new URL
+            const newURL = params.toString() ? `?${params.toString()}` : window.location.pathname;
+
+            // Update browser history without reloading
+            window.history.pushState({ filters: filterState }, '', newURL);
+
+            console.log('🔗 URL updated:', newURL);
+        }
+
+        /**
+         * Parse URL query parameters and restore filter state
+         * Called on page load and when browser back/forward buttons are used
+         */
+        function parseURLAndRestoreFilters() {
+            const params = new URLSearchParams(window.location.search);
+
+            console.log('🔍 Parsing URL parameters...');
+
+            // Restore sort
+            const sort = params.get('sort');
+            if (sort && ['recommended', 'rating', 'delivery-time', 'min-order'].includes(sort)) {
+                filterState.sort = sort;
+                const sortRadio = document.querySelector(`input[name="sort"][value="${sort}"]`);
+                if (sortRadio) {
+                    sortRadio.checked = true;
+                }
+                console.log('  ✓ Sort restored:', sort);
+            }
+
+            // Restore quick filters
+            if (params.get('fastDelivery') === 'true') {
+                filterState.quickFilters.fastDelivery = true;
+                const chip = document.querySelector('.chip[data-filter="fast-delivery"]');
+                if (chip) chip.setAttribute('aria-pressed', 'true');
+                console.log('  ✓ Fast Delivery filter restored');
+            }
+
+            if (params.get('newRestaurants') === 'true') {
+                filterState.quickFilters.newRestaurants = true;
+                const chip = document.querySelector('.chip[data-filter="new-restaurants"]');
+                if (chip) chip.setAttribute('aria-pressed', 'true');
+                console.log('  ✓ New Restaurants filter restored');
+            }
+
+            if (params.get('freeDelivery') === 'true') {
+                filterState.quickFilters.freeDelivery = true;
+                const chip = document.querySelector('.chip[data-filter="free-delivery"]');
+                if (chip) chip.setAttribute('aria-pressed', 'true');
+                console.log('  ✓ Free Delivery filter restored');
+            }
+
+            // Restore cuisine types
+            const cuisineParam = params.get('cuisine');
+            if (cuisineParam) {
+                const cuisines = cuisineParam.split(',').filter(c => c.trim());
+                filterState.cuisineTypes = cuisines;
+
+                cuisines.forEach(cuisine => {
+                    const checkbox = document.querySelector(`.filter-checkbox input[type="checkbox"][value="${cuisine}"]`);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+                console.log('  ✓ Cuisine types restored:', cuisines);
+            }
+
+            // Restore price range
+            const price = params.get('price');
+            if (price) {
+                const priceValue = parseInt(price);
+                if (!isNaN(priceValue) && priceValue >= 0 && priceValue <= 500) {
+                    filterState.priceRange = priceValue;
+                    const priceSlider = document.getElementById('priceRangeSlider');
+                    const priceLabel = document.getElementById('priceValue');
+                    if (priceSlider) {
+                        priceSlider.value = priceValue;
+                    }
+                    if (priceLabel) {
+                        priceLabel.textContent = priceValue >= 500 ? '₺500+' : `₺${priceValue}`;
+                    }
+                    console.log('  ✓ Price range restored:', priceValue);
+                }
+            }
+
+            // Restore open now filter
+            if (params.get('openNow') === 'true') {
+                filterState.openNow = true;
+                const openNowCheckbox = document.getElementById('openNowFilter');
+                if (openNowCheckbox) {
+                    openNowCheckbox.checked = true;
+                }
+                console.log('  ✓ Open Now filter restored');
+            }
+
+            // Restore search query
+            const searchQuery = params.get('q');
+            if (searchQuery) {
+                filterState.searchQuery = searchQuery;
+                const searchInput = document.getElementById('restaurantSearch');
+                if (searchInput) {
+                    searchInput.value = searchQuery;
+                }
+                console.log('  ✓ Search query restored:', searchQuery);
+            }
+
+            console.log('✅ Filter state restored from URL');
+            logFilterState();
+        }
+
+        /**
+         * Handle browser back/forward button navigation
+         * Restores filter state when user navigates through history
+         */
+        function handlePopState(event) {
+            console.log('⬅️ Browser back/forward button pressed');
+
+            if (event.state && event.state.filters) {
+                // Restore from history state
+                console.log('Restoring filters from history state');
+                Object.assign(filterState, event.state.filters);
+            } else {
+                // Parse URL if no state available
+                console.log('Parsing URL to restore filters');
+                parseURLAndRestoreFilters();
+            }
+
+            // TODO: In future tasks, this will trigger restaurant grid update
+            console.log('Filter state after navigation:', filterState);
+        }
+
+        // Initialize URL sync on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            // Parse URL and restore filters on initial page load
+            parseURLAndRestoreFilters();
+        });
+
+        // Listen for browser back/forward button events
+        window.addEventListener('popstate', handlePopState);
+
+        console.log('✅ URL sync and state management initialized');
+
+        // ============================================
+        // Chip Toggle Functionality
+        // ============================================
+
+        /**
+         * Handle chip button toggle
+         * Updates aria-pressed state and filter state
+         */
+        const chips = document.querySelectorAll('.chip[data-filter]');
+
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                // Get current pressed state
+                const isPressed = chip.getAttribute('aria-pressed') === 'true';
+                const filterType = chip.getAttribute('data-filter');
+
+                // Toggle aria-pressed attribute
+                chip.setAttribute('aria-pressed', !isPressed);
+
+                // Update filter state based on chip type
+                switch (filterType) {
+                    case 'fast-delivery':
+                        filterState.quickFilters.fastDelivery = !isPressed;
+                        console.log(`Quick Filter: Fast Delivery ${!isPressed ? 'enabled' : 'disabled'}`);
+                        break;
+                    case 'new-restaurants':
+                        filterState.quickFilters.newRestaurants = !isPressed;
+                        console.log(`Quick Filter: New Restaurants ${!isPressed ? 'enabled' : 'disabled'}`);
+                        break;
+                    case 'free-delivery':
+                        filterState.quickFilters.freeDelivery = !isPressed;
+                        console.log(`Quick Filter: Free Delivery ${!isPressed ? 'enabled' : 'disabled'}`);
+                        break;
+                }
+
+                // Log the updated filter state
+                logFilterState();
+
+                // Sync filters to URL
+                syncFiltersToURL();
+
+                // TODO: In future tasks, this will trigger restaurant grid filtering
+            });
+        });
+
+        console.log('Chip toggle functionality initialized');
+
+        // ============================================
+        // Sort Radio Button Handlers
+        // ============================================
+
+        /**
+         * Handle sort option changes
+         * Updates filter state when sort radio buttons change
+         */
+        const sortRadios = document.querySelectorAll('input[name="sort"]');
+
+        sortRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    filterState.sort = e.target.value;
+                    console.log(`Sort changed to: ${e.target.value}`);
+                    logFilterState();
+
+                    // Sync filters to URL
+                    syncFiltersToURL();
+
+                    // TODO: In future tasks, this will trigger restaurant grid re-sorting
+                }
+            });
+        });
+
+        console.log('Sort radio button handlers initialized');
+
+        // ============================================
+        // Cuisine Checkbox Handlers
+        // ============================================
+
+        /**
+         * Handle cuisine category checkbox changes
+         * Updates filter state with selected cuisine types
+         */
+        const cuisineCheckboxes = document.querySelectorAll('.filter-checkbox input[type="checkbox"]:not(#openNowFilter)');
+
+        cuisineCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                const cuisineValue = e.target.value;
+
+                if (e.target.checked) {
+                    // Add cuisine to filter state if not already present
+                    if (!filterState.cuisineTypes.includes(cuisineValue)) {
+                        filterState.cuisineTypes.push(cuisineValue);
+                        console.log(`Cuisine added: ${cuisineValue}`);
+                    }
+                } else {
+                    // Remove cuisine from filter state
+                    filterState.cuisineTypes = filterState.cuisineTypes.filter(c => c !== cuisineValue);
+                    console.log(`Cuisine removed: ${cuisineValue}`);
+                }
+
+                logFilterState();
+
+                // Sync filters to URL
+                syncFiltersToURL();
+
+                // TODO: In future tasks, this will trigger restaurant grid filtering
+            });
+        });
+
+        console.log('Cuisine checkbox handlers initialized');
+
+        // ============================================
+        // Price Range Slider Handler
+        // ============================================
+
+        /**
+         * Handle price range slider changes
+         * Updates filter state with selected price range
+         */
+        if (priceSlider && priceValue) {
+            priceSlider.addEventListener('change', (e) => {
+                const value = parseInt(e.target.value);
+                filterState.priceRange = value;
+                console.log(`Price range changed to: ₺${value >= 500 ? '500+' : value}`);
+                logFilterState();
+
+                // Sync filters to URL
+                syncFiltersToURL();
+
+                // TODO: In future tasks, this will trigger restaurant grid filtering
+            });
+        }
+
+        console.log('Price range slider handler initialized');
+
+        // ============================================
+        // Open Now Checkbox Handler
+        // ============================================
+
+        /**
+         * Handle "Open Now" status filter checkbox
+         * Updates filter state with open now status
+         */
+        const openNowFilter = document.getElementById('openNowFilter');
+
+        if (openNowFilter) {
+            openNowFilter.addEventListener('change', (e) => {
+                filterState.openNow = e.target.checked;
+                console.log(`Open Now filter: ${e.target.checked ? 'enabled' : 'disabled'}`);
+                logFilterState();
+
+                // Sync filters to URL
+                syncFiltersToURL();
+
+                // TODO: In future tasks, this will trigger restaurant grid filtering
+            });
+        }
+
+        console.log('Open Now filter handler initialized');
+
+        // ============================================
+        // Clear Filters Enhancement
+        // ============================================
+
+        /**
+         * Enhanced clear filters functionality
+         * Resets all filters to default state
+         */
+        if (clearFiltersBtn) {
+            // Remove the old event listener by cloning the button
+            const newClearFiltersBtn = clearFiltersBtn.cloneNode(true);
+            clearFiltersBtn.parentNode.replaceChild(newClearFiltersBtn, clearFiltersBtn);
+
+            newClearFiltersBtn.addEventListener('click', () => {
+                // Reset sort to recommended
+                const sortRadios = document.querySelectorAll('input[name="sort"]');
+                sortRadios.forEach(radio => {
+                    radio.checked = radio.value === 'recommended';
+                });
+                filterState.sort = 'recommended';
+
+                // Uncheck all chips
+                const chips = document.querySelectorAll('.chip');
+                chips.forEach(chip => {
+                    chip.setAttribute('aria-pressed', 'false');
+                });
+                filterState.quickFilters = {
+                    fastDelivery: false,
+                    newRestaurants: false,
+                    freeDelivery: false
+                };
+
+                // Uncheck all cuisine checkboxes
+                const cuisineCheckboxes = document.querySelectorAll('.filter-checkbox input[type="checkbox"]');
+                cuisineCheckboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                filterState.cuisineTypes = [];
+                filterState.openNow = false;
+
+                // Reset price slider
+                if (priceSlider && priceValue) {
+                    priceSlider.value = 500;
+                    priceValue.textContent = '₺500+';
+                    filterState.priceRange = 500;
+                }
+
+                // Clear search input
+                const searchInput = document.getElementById('restaurantSearch');
+                if (searchInput) {
+                    searchInput.value = '';
+                }
+                filterState.searchQuery = '';
+
+                console.log('All filters cleared');
+                logFilterState();
+
+                // Sync filters to URL (will clear URL params)
+                syncFiltersToURL();
+
+                // TODO: In future tasks, this will trigger restaurant grid reset
+            });
+        }
+
+        console.log('Filter interaction logic initialized successfully');
+
+        // ============================================
+        // Search Debounce Functionality
+        // ============================================
+
+        /**
+         * Debounce helper function
+         * Delays the execution of a function until after a specified delay
+         * @param {Function} func - The function to debounce
+         * @param {number} delay - The delay in milliseconds (350ms as per requirements)
+         * @returns {Function} - The debounced function
+         */
+        function debounce(func, delay) {
+            let timeoutId;
+            return function (...args) {
+                // Clear the previous timeout
+                clearTimeout(timeoutId);
+                // Set a new timeout
+                timeoutId = setTimeout(() => {
+                    func.apply(this, args);
+                }, delay);
+            };
+        }
+
+        /**
+         * Handle search input
+         * This function will be called after the debounce delay
+         * @param {string} query - The search query
+         */
+        function handleSearch(query) {
+            console.log('Search triggered with query:', query);
+
+            // Update filter state with search query
+            filterState.searchQuery = query.trim();
+
+            // TODO: In future tasks, this will trigger actual restaurant filtering
+            // For now, we're just logging to test the debounce functionality
+
+            if (query.trim() === '') {
+                console.log('Search cleared - showing all restaurants');
+            } else {
+                console.log(`Searching for: "${query}"`);
+                // Future implementation will filter restaurants here
+            }
+
+            logFilterState();
+
+            // Sync filters to URL
+            syncFiltersToURL();
+        }
+
+        // Get the search input element
+        const searchInput = document.getElementById('restaurantSearch');
+
+        if (searchInput) {
+            // Create debounced version of handleSearch with 350ms delay
+            const debouncedSearch = debounce(handleSearch, 350);
+
+            // Add input event listener
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value;
+                debouncedSearch(query);
+            });
+
+            // Add keydown event listener for Escape key to clear search
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    searchInput.value = '';
+                    handleSearch(''); // Immediately trigger search clear
+                    searchInput.blur(); // Optional: remove focus from input
+                    console.log('Search cleared via Escape key');
+                }
+            });
+
+            console.log('Search debounce functionality initialized (350ms delay)');
+        }
+
+        // ============================================
+        // Infinite Scroll Functionality
+        // ============================================
+
+        /**
+         * Infinite Scroll Implementation using Intersection Observer API
+         * Triggers loading of additional restaurants when user scrolls near the bottom
+         */
+
+        // Get references to DOM elements
+        const scrollTrigger = document.querySelector('.scroll-trigger');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const gridContainer = document.querySelector('.grid-container');
+
+        // State management for infinite scroll
+        let isLoading = false;
+        let currentPage = 1;
+        let hasMoreData = true;
+
+        /**
+         * Simulate loading more restaurants
+         * In a real application, this would fetch data from an API
+         */
+        function loadMoreRestaurants() {
+            // Prevent multiple simultaneous loads
+            if (isLoading || !hasMoreData) {
+                console.log('Load prevented:', { isLoading, hasMoreData });
+                return;
+            }
+
+            // Set loading state
+            isLoading = true;
+
+            // Show loading indicator
+            if (loadingIndicator) {
+                loadingIndicator.hidden = false;
+            }
+
+            console.log(`🔄 Infinite scroll triggered - Loading page ${currentPage + 1}...`);
+
+            // Simulate API call with setTimeout (replace with actual fetch in production)
+            setTimeout(() => {
+                console.log(`✅ Page ${currentPage + 1} loaded successfully`);
+
+                // Increment page counter
+                currentPage++;
+
+                // Simulate: After 3 pages, no more data (for testing purposes)
+                if (currentPage >= 3) {
+                    hasMoreData = false;
+                    console.log('📭 No more restaurants to load');
+                }
+
+                // Hide loading indicator
+                if (loadingIndicator) {
+                    loadingIndicator.hidden = true;
+                }
+
+                // Reset loading state
+                isLoading = false;
+
+                // TODO: In future tasks, append new restaurant cards to gridContainer
+                // Example: gridContainer.innerHTML += newRestaurantCardsHTML;
+
+            }, 1500); // Simulate 1.5 second API delay
+        }
+
+        /**
+         * Intersection Observer callback
+         * Called when the scroll trigger element enters/exits the viewport
+         * @param {IntersectionObserverEntry[]} entries - Array of observed elements
+         * @param {IntersectionObserver} observer - The observer instance
+         */
+        function handleIntersection(entries, observer) {
+            entries.forEach(entry => {
+                // Check if the trigger element is intersecting (visible in viewport)
+                if (entry.isIntersecting) {
+                    console.log('📍 Scroll trigger entered viewport (200px threshold)');
+                    loadMoreRestaurants();
+                }
+            });
+        }
+
+        /**
+         * Initialize Intersection Observer
+         * Sets up the observer with 200px threshold as per requirements
+         */
+        function initInfiniteScroll() {
+            // Check if scroll trigger element exists
+            if (!scrollTrigger) {
+                console.error('Scroll trigger element not found');
+                return;
+            }
+
+            // Create Intersection Observer with options
+            const observerOptions = {
+                root: null, // Use viewport as root
+                rootMargin: '200px', // Trigger 200px before reaching the element
+                threshold: 0 // Trigger as soon as any part is visible
+            };
+
+            // Create the observer
+            const observer = new IntersectionObserver(handleIntersection, observerOptions);
+
+            // Start observing the scroll trigger element
+            observer.observe(scrollTrigger);
+
+            console.log('✨ Infinite scroll initialized with Intersection Observer');
+            console.log('   - Threshold: 200px before scroll trigger');
+            console.log('   - Trigger element:', scrollTrigger);
+            console.log('   - Scroll down to test the functionality');
+        }
+
+        // Initialize infinite scroll when DOM is ready
+        if (scrollTrigger && loadingIndicator) {
+            initInfiniteScroll();
+        } else {
+            console.error('Required elements for infinite scroll not found:', {
+                scrollTrigger: !!scrollTrigger,
+                loadingIndicator: !!loadingIndicator
+            });
+        }
+
+        // ============================================
+        // Error Handling UI
+        // ============================================
+
+        /**
+         * Show network error banner
+         * Displays an error message when restaurant data fails to load
+         */
+        function showNetworkError() {
+            const errorBanner = document.getElementById('networkErrorBanner');
+            if (errorBanner) {
+                errorBanner.hidden = false;
+                console.error('❌ Network error: Failed to load restaurants');
+            }
+        }
+
+        /**
+         * Hide network error banner
+         * Removes the error message from view
+         */
+        function hideNetworkError() {
+            const errorBanner = document.getElementById('networkErrorBanner');
+            if (errorBanner) {
+                errorBanner.hidden = true;
+                console.log('✅ Network error banner hidden');
+            }
+        }
+
+        /**
+         * Retry loading restaurants
+         * Called when user clicks the "Tekrar Dene" button
+         */
+        function retryLoadRestaurants() {
+            console.log('🔄 Retrying to load restaurants...');
+            hideNetworkError();
+
+            // Show loading indicator
+            if (loadingIndicator) {
+                loadingIndicator.hidden = false;
+            }
+
+            // Simulate retry attempt (replace with actual API call in production)
+            setTimeout(() => {
+                // Simulate successful retry
+                if (loadingIndicator) {
+                    loadingIndicator.hidden = true;
+                }
+                console.log('✅ Retry successful - restaurants loaded');
+
+                // In case of failure, you would call showNetworkError() again
+                // showNetworkError();
+            }, 1000);
+        }
+
+        /**
+         * Handle image load failure
+         * Replaces failed images with a fallback placeholder
+         * @param {HTMLImageElement} img - The image element that failed to load
+         */
+        function handleImageError(img) {
+            // Prevent infinite loop if fallback also fails
+            if (img.dataset.fallbackApplied) {
+                return;
+            }
+
+            img.dataset.fallbackApplied = 'true';
+
+            // Get the restaurant name from the card title
+            const card = img.closest('.restaurant-card');
+            let fallbackText = '?';
+
+            if (card) {
+                const titleElement = card.querySelector('.card-title');
+                if (titleElement) {
+                    // Get first letter of restaurant name
+                    fallbackText = titleElement.textContent.trim().charAt(0).toUpperCase();
+                }
+            }
+
+            // Create fallback placeholder
+            const wrapper = img.parentElement;
+            if (wrapper) {
+                // Hide the broken image
+                img.style.display = 'none';
+
+                // Create fallback div
+                const fallback = document.createElement('div');
+                fallback.className = 'image-fallback';
+                fallback.setAttribute('aria-label', 'Görsel yüklenemedi');
+                fallback.textContent = fallbackText;
+
+                // Insert fallback before the image
+                wrapper.insertBefore(fallback, img);
+
+                console.log(`🖼️ Image fallback applied for: ${img.alt || 'Unknown'}`);
+            }
+        }
+
+        /**
+         * Initialize image error handlers
+         * Adds error event listeners to all restaurant card images
+         */
+        function initImageErrorHandlers() {
+            const restaurantImages = document.querySelectorAll('.restaurant-card .card-image');
+            const campaignImages = document.querySelectorAll('.campaign-card .campaign-image');
+
+            // Add error handlers to restaurant card images
+            restaurantImages.forEach(img => {
+                img.addEventListener('error', function () {
+                    handleImageError(this);
+                });
+            });
+
+            // Add error handlers to campaign card images
+            campaignImages.forEach(img => {
+                img.addEventListener('error', function () {
+                    handleImageError(this);
+                });
+            });
+
+            console.log(`🖼️ Image error handlers initialized for ${restaurantImages.length + campaignImages.length} images`);
+        }
+
+        // Initialize image error handlers when DOM is ready
+        initImageErrorHandlers();
+
+        // Example: Simulate network error for testing (uncomment to test)
+        // setTimeout(() => {
+        //     showNetworkError();
+        // }, 2000);
+
+        console.log('✅ Error handling UI initialized');
+    </script>
+</body>
+
+</html>
